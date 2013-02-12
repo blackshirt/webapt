@@ -1,6 +1,7 @@
 import apt
 
 cache = apt.Cache()
+cache.update()
 cache.open()
 
 allpkg = cache.keys()
@@ -11,7 +12,7 @@ def get_jumlah_pkg():
 def get_all_pkgname():
 	print "\n".join(sorted(allpkg))
 
-def count_all_installed_pkg():
+def jml_pkg_all_installed():
 	all_installed = []
 	for pkg in allpkg:
 		selected_pkg = cache[pkg]
@@ -21,7 +22,7 @@ def count_all_installed_pkg():
 
 	return len(all_installed)
 
-def count_upgradable_pkg():
+def jml_pkg_upgradable():
 	upgradable = []
 	for pkg in allpkg:
 		upgradable_pkg = cache[pkg]
@@ -31,9 +32,9 @@ def count_upgradable_pkg():
 
 	return len(upgradable)
 
-def count_installed_pkg():
-	installed = count_all_installed_pkg()
-	upgradable = count_upgradable_pkg()
+def jml_pkg_installed():
+	installed = jml_pkg_all_installed()
+	upgradable = jml_pkg_upgradable()
 	return (installed - upgradable)
 
 def get_section(pkg):
@@ -43,7 +44,7 @@ def get_section(pkg):
 	else:
 		return pkg.installed.section
 
-def get_component(self, pkg):
+def get_component(pkg):
 	pkg = cache[pkg]
 	componen = pkg.installed.origins[0].component
 	return componen
