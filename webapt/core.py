@@ -1,7 +1,7 @@
 import apt
 
 cache = apt.Cache()
-cache.update()
+#cache.update()
 cache.open()
 
 allpkg = cache.keys()
@@ -46,5 +46,6 @@ def get_section(pkg):
 
 def get_component(pkg):
 	pkg = cache[pkg]
-	componen = pkg.installed.origins[0].component
-	return componen
+	komponen = pkg.installed.origins[0].component
+	return komponen
+
