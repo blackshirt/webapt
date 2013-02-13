@@ -1,10 +1,13 @@
+import apt_pkg
 import apt
 
+apt_pkg.init()
+cachepkg = apt_pkg.Cache()
 cache = apt.Cache()
-cache.update()
 cache.open()
 
 allpkg = cache.keys()
+allfromaptpkg = cachepkg.packages
 
 def get_jumlah_pkg():
 	return len(allpkg)
@@ -37,6 +40,15 @@ def jml_pkg_installed():
 	upgradable = jml_pkg_upgradable()
 	return (installed - upgradable)
 
+def jml_pkg_virtual():
+	virtual = []
+	for pkg in allfromaptpkg:
+		if(pkg.has_provides and not pkg.has_versions):
+			virtual.append(pkg)
+	return len(virtual)
+	
+
+	
 def get_section(pkg):
 	if pkg in allpkg:
 		pkg = cache[pkg]	
