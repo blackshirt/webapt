@@ -47,7 +47,6 @@ def jml_pkg_virtual():
 			virtual.append(pkg)
 	return len(virtual)
 	
-
 	
 def get_section(pkg):
 	if pkg in allpkg:
