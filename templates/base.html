@@ -1,16 +1,26 @@
-<! doctype html>
 <html>
-	<head>
-		{% block head %}
-		<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"
-		<title>{% block title %} {% endblock %} - @blackshirt </title>
-		{% endblock %}
-	</head>
-<body>
-	<div id="content"> {% block content %} {% endblock %} </div>
-	<div id="footer">
-			{% block footer %}
-			&copy; Copyright 2013 by <a href="blackstreetnight.wordpress.com">blackshirtmuslim@yahoo.co.id </a>
-			{% endblock %}
-	</div>
-</body>	
+    <head>
+      <title>{% block title %}My Site{% endblock %}</title>
+     
+      {% block css %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+      {% endblock %}
+      
+      {% block script %}
+      <script src="/static/js/main.js" type="text/javascript"></script>
+      {% endblock %}
+    
+    </head>
+    <body>
+      <div id="header">{% block header %}{% endblock %}</div>
+      <div id="messages-wrap">
+        <div id="messages">
+          {% for category, msg in get_flashed_messages(with_categories=true) %}
+            <p class="message flash-{{ category }}">{{ msg }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      <div id="content">{% block content %}{% endblock%}</div>
+      <div id="footer">{% block footer %}{% endblock%}</div>
+    </body>
+  </html>
