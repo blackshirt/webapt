@@ -1,5 +1,8 @@
 ##(c) 2013, blackshirtmuslim@yahoo.co.id
 
+from flask import Flask
+app = Flask(__name__)
+
 
 @app.route('/view/<path:paket>')
 def view(paket):
@@ -21,3 +24,5 @@ def update():
 	return update()
 
 
+if __name__ == '__main__'
+	app.run(debug=True)
