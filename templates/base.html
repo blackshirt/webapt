@@ -3,7 +3,7 @@
       <title>{% block title %}My Site{% endblock %}</title>
      
       {% block css %}
-      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static/css', filename='style.css') }}" />
       {% endblock %}
       
       {% block script %}
@@ -19,7 +19,7 @@
 	<div id="messages-box">
          <div id="messages">
           {% for category, msg in get_flashed_messages(with_categories=true) %}
-            <p class="message flash-{{ category }}">{{ msg }}</p>
+            <p class="messages flash-{{ category }}">{{ msg }}</p>
           {% endfor %}
          </div>
       	</div>
