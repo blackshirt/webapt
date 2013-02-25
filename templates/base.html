@@ -1,26 +1,24 @@
 <html>
     <head>
-      <title>{% block title %}My Site{% endblock %}</title>
+      <title>{% block title %} Title {% endblock %}</title>
      
       {% block css %}
       <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
       {% endblock %}
       
       {% block script %}
-      <script src="/static/js/main.js" type="text/javascript"></script>
+      <script src="{{ url_for('static', filename='jquery.js') }}" type="text/javascript"></script>
       {% endblock %}
     
     </head>
+
     <body>
-      <div id="header">{% block header %}{% endblock %}</div>
-      <div id="messages-wrap">
-        <div id="messages">
-          {% for category, msg in get_flashed_messages(with_categories=true) %}
-            <p class="message flash-{{ category }}">{{ msg }}</p>
-          {% endfor %}
-        </div>
-      </div>
-      <div id="content">{% block content %}{% endblock%}</div>
-      <div id="footer">{% block footer %}{% endblock%}</div>
+      <div id="level0">{% block header %}HEADER{% endblock%}</div>
+      <div id="level1">{% block topnav %}NAVIGASI{% endblock%}</div>
+      <div id="level2">{% block main %}main{% endblock%}</div>
+      <div class="level3">{% block page %}Page{% endblock%}</div>  
+      <div id="main">{% block left %}LEFT{% endblock%}</div>
+      <div id="content">{% block content %}CONTENT{% endblock%}</div>
+      <div id="footer">{% block footer %}FOOOOTER{% endblock%}</div>
     </body>
   </html>
