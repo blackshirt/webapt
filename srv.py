@@ -23,6 +23,9 @@ def list(status=None):
 
 @app.route('/install/<path:paket>')
 def install(paket=None):
+	with cache.actiongroup():
+    	for paket in my_selected_packages:
+        paket.mark_install()
 	paket = paket
 	return render_template('install', paket=paket)
 
