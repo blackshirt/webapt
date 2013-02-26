@@ -1,39 +1,34 @@
 <html>
-    <head>
-      <title>{% block title %} Title {% endblock %}</title>
-     
-      {% block css %}
+  <head>
+    <title>{% block title %} Title {% endblock %}</title>
+     {% block css %}
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
-      {% endblock %}
+     {% endblock %}
       
-      {% block script %}
+     {% block script %}
       <script src="{{ url_for('static', filename='js/jquery.js') }}" type="text/javascript"></script>
-      {% endblock %}
-    </head>
+     {% endblock %}
+  </head>
 
      
-    <body>
-      	<div id="header">{% block header %}header{% endblock %}</div>
-
-	<div id="topnav">{% block topnav %}topnav{% endblock %}</div>
-
-	<div id="messages-box">
-         <div id="messages">
-          {% for category, msg in get_flashed_messages(with_categories=true) %}
-            <p class="messages flash-{{ category }}">{{ msg }}</p>
-          {% endfor %}
-         </div>
-      	</div>
-	
-	<div id="body-utama">
-	 <div id="letfnav">{% block leftnav %}leftnav{% endblock %}</div>	
-	 <div id="content">{% block content %}content{% endblock %}</div>
-	</div>
-
-      <div id="deskripsi">{% block deskripsi %}deskripsi{% endblock%}</div>
-
-      <div id="footer">{% block footer %}footer{% endblock%}</div>
-
-    </body>
-
-  </html>
+  <body>
+   <div id="page-container">  
+     <div id="header">{% block header %}header{% endblock %}</div>
+     <div id="top-nav">{% block topnav %}topnav{% endblock %}</div>
+	   <div id="flash">
+       <div id="messages">Messages
+        {% for category, msg in get_flashed_messages(with_categories=true) %}
+            <p class="messages flash-{{ category }}">msg{{ msg }}</p>
+        {% endfor %}
+       </div>
+     </div>
+	   <div id="body-utama">
+	   <div id="left-nav">{% block leftnav %}leftnav{% endblock %}</div>	
+	   <div id="content">{% block content %}content{% endblock %}</div>
+	   </div>
+     <div id="deskripsi">{% block deskripsi %}deskripsi{% endblock%}</div>
+     <div id="footer">{% block footer %}footer{% endblock%}</div>
+  </div>    
+    
+  </body>
+</html>
