@@ -26,7 +26,7 @@ def install(paket=None):
 	with cache.actiongroup():
     	for paket in my_selected_packages:
         paket.mark_install()
-	paket = paket
+	paket.commit()
 	return render_template('install', paket=paket)
 
 @app.route("/update")
@@ -38,7 +38,12 @@ def update():
 	else:
 		return "cache update failed", 500
 	
-
+@app.route("/commit")
+def commit():
+	with cache.actiongroup():
+    	for paket in my_selected_packages:
+        paket.mark_install()
+	paket.commit(apt.progress.base.AcquireProgress(), apt.progress.base.OpProgress())
 
 
 if __name__ == '__main__':
