@@ -4,10 +4,7 @@ import apt
 apt_pkg.init()
 cachepkg = apt_pkg.Cache()
 cache = apt.Cache()
-<<<<<<< HEAD
-#cache.update()
-=======
->>>>>>> aa25a0d623951580b481b4d81091c1357364fa72
+
 cache.open()
 
 allpkg = cache.keys()
