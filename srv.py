@@ -45,6 +45,23 @@ def commit():
         paket.mark_install()
 	paket.commit(apt.progress.base.AcquireProgress(), apt.progress.base.OpProgress())
 
+@app.route("/upgradable")
+def view_upgradabale():
+	pass
+
+@app.route("/newpackages")
+def new_packages():
+	pass
+
+@app.route("/installed")
+def view_installed()
+	pass
+
+@app.route("/notinstalled")
+def view_not_installed()
+	pass
+
+
 
 if __name__ == '__main__':
 	app.run(debug=True)
