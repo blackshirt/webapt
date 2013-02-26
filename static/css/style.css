@@ -55,13 +55,14 @@ background-color: #f099cc;
 
 /* ----------banner for logo-------------- */
 #header {
-background-image: images/background.png;
-background-repeat: repeat-y;
+background: #db6d16 url(../images/background.png);
+background-position: left;
+background-size: 100%;
 padding: 0px;
 margin: 0px;
 height: 150px;
 }
-#header img {padding:10px 0px;} 
+#header img {padding:0px 0px;} 
 
 #flash {
 	background-color: #7def99;
@@ -94,11 +95,52 @@ margin:0px;
 
 #left-nav {
 float: left;
-width: 280px;
+width: 300px;
 color: #121212;
 clear: both;
 }
 
+#navigation {
+	font-size: 1.35em;
+	width: 180px;
+}
+
+#navigation ul {
+	margin: 0; padding: 0;
+}
+
+#navigation li {
+	list-style: none;
+}
+
+#navigation a {
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	height: 25px;
+	line-height: 25px;
+	text-indent: 10px;
+	text-decoration: none;
+	width: 100%
+}
+
+#navigation a:hover {
+	text-decoration: underline;;
+}
+
+#navigation li:hover {
+	background: #f90;
+	position: relative;
+}
+
+ul.top-level {
+	background: #666;
+}
+ul.top-level li {
+	border-bottom: #fff solid;
+	border-top: #fff solid;
+	border-width: 1px;
+}
 /* -----------footer--------------------------- */
 #deskripsi {
 clear: both;
@@ -109,9 +151,12 @@ padding: 0px;
 text-align: right; }
 
 #footer {
-clear: both;
-background: orange;
-height: 66px;
-margin: 0px;
-padding: 0px;
-text-align: right; }
+border:2px solid; 
+display:table; 
+height:100px; 
+vertical-align: middle; 
+width:100%;
+}
+
+.left {border:2px solid;width:40%; float:left; vertical-align: middle; padding: 10px 15px;}
+.right {border:2px solid; width:40%; float:right; text-align: right; vertical-align: middle; padding: 10px 15px;}

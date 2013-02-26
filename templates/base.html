@@ -23,11 +23,30 @@
        </div>
      </div>
 	   <div id="body-utama">
-	   <div id="left-nav">{% block leftnav %}leftnav{% endblock %}</div>	
+	   <div id="left-nav">
+      {% block leftnav %}
+      <div id="navigation">
+        <ul class="top-level">
+            <li><a href="">Home</a></li>
+            <li><a href="">Articles</a></li>
+            <li><a href="">Tutorials</a></li>
+            <li><a href="">Resources</a></li>
+            <li><a href="">Anything</a></li>
+            <li><a href="">Anything</a></li>
+        </ul><!--end navigation-menu-->
+      </div>
+      {% endblock %}
+    </div>	
 	   <div id="content">{% block content %}content{% endblock %}</div>
 	   </div>
      <div id="deskripsi">{% block deskripsi %}deskripsi{% endblock%}</div>
-     <div id="footer">{% block footer %}footer{% endblock%}</div>
+     <div id="footer">
+      {% block footer %}
+        <div class="left">kaki sebelah kiri</div>
+        <div class="right">kaki sebelah kanan</div>
+                 footer
+      {% endblock%}
+     </div>
   </div>    
     
   </body>
