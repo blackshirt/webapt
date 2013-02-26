@@ -61,6 +61,10 @@ def view_installed()
 def view_not_installed()
 	pass
 
+@app.route("/home")
+def home():
+	entry = get_all_section()
+	return render_template('menu', entry=entry)
 
 
 if __name__ == '__main__':
