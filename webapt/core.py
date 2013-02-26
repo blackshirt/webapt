@@ -48,17 +48,25 @@ def jml_pkg_virtual():
 			virtual.append(pkg)
 	return len(virtual)
 	
-
 	
-def get_section(pkg):
+def get_section_for(pkg):
 	if pkg in allpkg:
 		pkg = cache[pkg]	
 		return pkg.section
 	else:
 		return pkg.installed.section
 
-def get_component(pkg):
+def get_component_for(pkg):
 	pkg = cache[pkg]
-	komponen = pkg.installed.origins[0].component
-	return komponen
+	componen = pkg.installed.origins[0].component
+	return componen
+
+def get_all_section():
+	cachepkt = [cache[x] for x in allpkg]
+	newlist = [ pkg.section for pkg in cachepkt if pkg.installed]
+	return sorted(set(newlist))
+
+def get_all_component():
+	pass
+>>>>>>> 5741c4b7347573264ad5ac65752330513766a63e
 
