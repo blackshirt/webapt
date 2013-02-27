@@ -1,10 +1,12 @@
 {% extends "base.html" %}
-{% block left-nav %}
-<ul id="navigation">
+{% block leftnav %}
+<div id="navigation">
+<ul class="top-level">
 {% for item in entry%}
-	<li><a href="{{ item }}">{{ item }}</a></li>
+	<li><a href="/view/{{item}}">{{item|upper}}</a></li>
 {% endfor %}
 </ul>
+</div>
 
 
 {% endblock %}

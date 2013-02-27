@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
+<ul>
+{% for item in section %}
+	<li><a href="/view/{{item}}">{{item|upper}}</a></li>
+{% endfor %}
+</ul>
 
 
 {% endblock %}
