@@ -1,6 +1,6 @@
 ##(c) 2013, blackshirtmuslim@yahoo.co.id
 
-from flask import Flask, render_template, flash, request, url_for
+from flask import Flask, render_template, flash, request, url_for, redirect
 app = Flask(__name__)
 app.secret_key = 'some'
 from webapt import core
@@ -11,10 +11,20 @@ from webapt import core
 def base():
 	return render_template('base.html')
 
+@app.route('/')
+def index():
+	return redirect(url_for('home'))
+
 @app.route('/view/<path:section>')
 def view(section=None):
 	section = section
 	return render_template('view.html', section=section)
+
+@app.route('/paket/<path:name>')
+def paket(name=None):
+	cachepkg = core.cache[name]
+	nama = cachepkg.shortname
+	return render_template('paket.html', nama=nama)
 
 @app.route('/list/<path:status>')
 def list(status=None):
