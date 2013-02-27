@@ -68,5 +68,4 @@ def get_all_section():
 
 def get_all_component():
 	pass
->>>>>>> 5741c4b7347573264ad5ac65752330513766a63e
 
