@@ -1,6 +1,6 @@
 ##(c) 2013, blackshirtmuslim@yahoo.co.id
 
-from flask import Flask, render_template, flash, request, url_for
+from flask import Flask, render_template, flash, request, url_for, redirect
 app = Flask(__name__)
 app.secret_key = 'some'
 from webapt import core
@@ -10,6 +10,11 @@ from webapt import core
 @app.route('/base')
 def base():
 	return render_template('base.html')
+
+##index
+@app.route('/')
+def index():
+	return redirect(url_for('home'))
 
 @app.route('/view/<path:section>')
 def view(section=None):
