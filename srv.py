@@ -11,7 +11,7 @@ from webapt import core
 def base():
 	return render_template('base.html')
 
-##index
+
 @app.route('/')
 def index():
 	return redirect(url_for('home'))
@@ -20,6 +20,12 @@ def index():
 def view(section=None):
 	section = section
 	return render_template('view.html', section=section)
+
+@app.route('/paket/<path:name>')
+def paket(name=None):
+	cachepkg = core.cache[name]
+	nama = cachepkg.shortname
+	return render_template('paket.html', nama=nama)
 
 @app.route('/list/<path:status>')
 def list(status=None):
