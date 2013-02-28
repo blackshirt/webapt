@@ -7,19 +7,21 @@ from webapt import core
 
 
 ##test
-@app.route('/base')
-def base():
-	return render_template('base.html')
-
+##@app.route('/base')
+#def base():
+#	return render_template('base.html')
 
 @app.route('/')
 def index():
-	return redirect(url_for('home'))
-
+	entry = core.get_all_section()
+	return render_template('base.html', entry=entry)
+	
 @app.route('/view/<path:section>')
 def view(section=None):
-	section = section
-	return render_template('view.html', section=section)
+    with core.cache.actiongroup(): 	
+    	all_pkgs = (core.cache[name] for name in core.cache.keys())
+    	packages = (pkg for pkg in all_pkgs if pkg.section == section)
+    return render_template('view.html', packages=packages)
 
 @app.route('/paket/<path:name>')
 def paket(name=None):
@@ -74,7 +76,6 @@ def view_not_installed():
 
 @app.route("/home")
 def home():
-	entry = core.get_all_section()
 	return render_template('menu.html', entry=entry)
 
 

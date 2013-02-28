@@ -1,15 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-
 <ul>
-{% for item in section %}
-	<li><a href="/paket/{{item}}">{{item}}</a></li>
-
-	<li><a href="/paket/{{item}}">{{item|upper}}</a></li>
-
+{% 	for item in packages %}
+	<li><a href="/package/{{item.shortname}}">{{item.shortname|upper}}</a></li>
 {% endfor %}
 </ul>
-
-
 {% endblock %}
 

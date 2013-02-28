@@ -1,4 +1,4 @@
-<html>
+<doctype html>
   <head>
     <title>{% block title %} Title {% endblock %}</title>
      {% block css %}
@@ -25,19 +25,14 @@
      </div>
 	   <div id="body-utama">
 	   <div id="leftnav">
-      {% block leftnav %}
       <div id="navigation">
-        <ul class="top-level">
-            <li><a href="">Home</a></li>
-            <li><a href="">Articles</a></li>
-            <li><a href="">Tutorials</a></li>
-            <li><a href="">Resources</a></li>
-            <li><a href="">Anything</a></li>
-            <li><a href="">Anything</a></li>
-        </ul><!--end navigation-menu-->
-      </div>
-      {% endblock %}
-    </div>	
+          <ul class="top-level">
+            {% for item in entry%}
+              <li><a href="/view/{{item}}">{{item|upper}}</a></li>
+           {% endfor %}
+          </ul>
+        </div>
+      </div>	
 	   <div id="content">{% block content %}<h1>content</h1>{% endblock %}</div>
 	   </div>
      <div id="deskripsi">{% block deskripsi %}<h2><p>deskripsi</p></h2>{% endblock%}</div>
