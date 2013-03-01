@@ -134,6 +134,18 @@ clear: both;
 	position: relative;
 }
 
+li a { color:blue; background-color:  #ccf; }
+li:nth-child(odd) a { 
+	color:green;
+	background-color:  #ccf;
+	}
+li:nth-child(even) a { color:red; }
+
+li { color:blue; }
+li:nth-child(odd) { color:green; background-color:  #ccf;}
+li:nth-child(even) { color:red; }
+
+
 ul.top-level {
 	background: #BC4676;
 }

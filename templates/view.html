@@ -2,7 +2,7 @@
 {% block content %}
 <ul>
 {% 	for item in packages %}
-	<li><a href="/paket/{{item.shortname}}">{{item.shortname|upper}}</a></li>
+	<li class="{{ loop.cycle('odd', 'even') }}"><a href="/paket/{{item.shortname}}">{{item.shortname|upper}}</a></li>
 {% endfor %}
 </ul>
 {% endblock %}

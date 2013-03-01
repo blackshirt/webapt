@@ -3,6 +3,9 @@
 from flask import Flask, render_template, flash, request, url_for, redirect
 app = Flask(__name__)
 app.secret_key = 'some'
+import gevent.monkey
+gevent.monkey.patch_all()
+
 from webapt import core
 
 
@@ -20,7 +23,7 @@ def index():
 def view(section=None):
     with core.cache.actiongroup(): 	
     	all_pkgs = (core.cache[name] for name in core.cache.keys())
-    	packages = (pkg for pkg in all_pkgs if pkg.section == section)
+    	packages = [pkg for pkg in all_pkgs if pkg.section == section]
     return render_template('view.html', packages=packages, entry=entry)
 
 @app.route('/paket/<path:name>')
@@ -96,5 +99,18 @@ def show_users(page):
         users=users
     )
 
+#if __name__ == '__main__':
+#	app.run(debug=True)
 if __name__ == '__main__':
-	app.run(debug=True)
+    import gevent.monkey
+    from gevent.wsgi import WSGIServer
+    from werkzeug.serving import run_with_reloader
+    from werkzeug.debug import DebuggedApplication
+    gevent.monkey.patch_all()
+ 
+    @run_with_reloader
+    def run_server():
+        http_server = WSGIServer(('', 5000), DebuggedApplication(app))
+        http_server.serve_forever()
+ 
+    run_server()
