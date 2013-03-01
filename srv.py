@@ -10,10 +10,10 @@ from webapt import core
 ##@app.route('/base')
 #def base():
 #	return render_template('base.html')
+entry = core.get_all_section()
 
 @app.route('/')
 def index():
-	entry = core.get_all_section()
 	return render_template('base.html', entry=entry)
 	
 @app.route('/view/<path:section>')
@@ -21,13 +21,15 @@ def view(section=None):
     with core.cache.actiongroup(): 	
     	all_pkgs = (core.cache[name] for name in core.cache.keys())
     	packages = (pkg for pkg in all_pkgs if pkg.section == section)
-    return render_template('view.html', packages=packages)
+    return render_template('view.html', packages=packages, entry=entry)
 
 @app.route('/paket/<path:name>')
 def paket(name=None):
 	cachepkg = core.cache[name]
 	nama = cachepkg.shortname
-	return render_template('paket.html', nama=nama)
+	paket = cachepkg.installed or cachepkg.candidate
+	deskripsi = paket.raw_description
+	return render_template('paket.html', entry=entry, nama=nama, deskripsi=deskripsi)
 
 @app.route('/list/<path:status>')
 def list(status=None):
@@ -78,6 +80,21 @@ def view_not_installed():
 def home():
 	return render_template('menu.html', entry=entry)
 
+
+PER_PAGE = 20
+
+@app.route('/users/', defaults={'page': 1})
+@app.route('/users/page/<int:page>')
+def show_users(page):
+    count = count_all_users()
+    users = get_users_for_page(page, PER_PAGE, count)
+    if not users and page != 1:
+        abort(404)
+    pagination = Pagination(page, PER_PAGE, count)
+    return render_template('users.html',
+        pagination=pagination,
+        users=users
+    )
 
 if __name__ == '__main__':
 	app.run(debug=True)
