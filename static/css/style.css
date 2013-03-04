@@ -9,7 +9,7 @@ body {
   padding:0px;
   margin:0px;
   font-family: Arial, Helvetica, Verdana, Sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   color: #666666;
   background: #B8B9BB;
 }
@@ -101,7 +101,7 @@ clear: both;
 }
 
 #navigation {
-	font-size: 1.25em;
+	font-size: 1.45em;
 	font-style: bold;
 	width: 180px;
 }
@@ -142,7 +142,7 @@ li:nth-child(odd) a {
 li:nth-child(even) a { color:red; }
 
 li { color:blue; }
-li:nth-child(odd) { color:green; background-color:  #ccf;}
+li:nth-child(odd) { color:#ccc; background-color:  #c0f;}
 li:nth-child(even) { color:red; }
 
 

@@ -30,8 +30,8 @@ def view(section=None):
 def paket(name=None):
 	cachepkg = core.cache[name]
 	nama = cachepkg.shortname
-	paket = cachepkg.installed or cachepkg.candidate
-	deskripsi = paket.raw_description
+	paket = cachepkg.candidate
+	deskripsi = paket.description
 	return render_template('paket.html', entry=entry, nama=nama, deskripsi=deskripsi)
 
 @app.route('/list/<path:status>')
