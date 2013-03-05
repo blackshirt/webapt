@@ -42,10 +42,9 @@ def list(status=None):
 @app.route('/install/<path:paket>')
 def install(paket=None):
 	with cache.actiongroup():
-		for paket in my_selected_packages:
+		for paket in cache:
 			paket.mark_install()
-		paket.commit()
-	return render_template('install', paket=paket)
+		return render_template('install', paket=paket)
 
 @app.route("/update")
 def update():
@@ -75,6 +74,11 @@ def new_packages():
 def view_installed():
 	pass
 
+@app.route("/statistic")
+def statistic():
+	data = core.get_jumlah_pkg()
+	return render_template("statistic.html", entry=entry, data=data)
+
 @app.route("/notinstalled")
 def view_not_installed():
 	pass
@@ -99,18 +103,18 @@ def show_users(page):
         users=users
     )
 
-#if __name__ == '__main__':
-#	app.run(debug=True)
 if __name__ == '__main__':
-    import gevent.monkey
-    from gevent.wsgi import WSGIServer
-    from werkzeug.serving import run_with_reloader
-    from werkzeug.debug import DebuggedApplication
-    gevent.monkey.patch_all()
+	app.run(debug=True)
+#if __name__ == '__main__':
+#    import gevent.monkey
+#    from gevent.wsgi import WSGIServer
+#    from werkzeug.serving import run_with_reloader
+#    from werkzeug.debug import DebuggedApplication
+#    gevent.monkey.patch_all()
  
-    @run_with_reloader
-    def run_server():
-        http_server = WSGIServer(('', 5000), DebuggedApplication(app))
-        http_server.serve_forever()
+#    @run_with_reloader
+#    def run_server():
+#        http_server = WSGIServer(('', 5000), DebuggedApplication(app))
+#        http_server.serve_forever()
  
-    run_server()
+#    run_server()
