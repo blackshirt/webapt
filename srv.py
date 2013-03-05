@@ -76,7 +76,7 @@ def view_installed():
 
 @app.route("/statistic")
 def statistic():
-	data = core.get_jumlah_pkg()
+	data = dict(jml=core.get_jumlah_pkg(), all=core.jml_pkg_all_installed(), upgradable=core.jml_pkg_upgradable(), installed=core.jml_pkg_installed())
 	return render_template("statistic.html", entry=entry, data=data)
 
 @app.route("/notinstalled")
