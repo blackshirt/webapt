@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<ul>
+{% 	for item in perubahan %}
+	<li class="{{ loop.cycle('odd', 'even') }}"><a href="/paket/{{item.shortname}}">{{item.name|upper}}{{item.architecture}}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
+

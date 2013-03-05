@@ -5,11 +5,12 @@ apt_pkg.init()
 cachepkg = apt_pkg.Cache()
 cache = apt.Cache()
 
-cache.open()
-
 allpkg = cache.keys()
 allfromaptpkg = cachepkg.packages
 
+def open_database():
+	return cache.open()
+	
 def get_jumlah_pkg():
 	return len(allpkg)
 
@@ -68,4 +69,7 @@ def get_all_section():
 
 def get_all_component():
 	pass
+
+def get_yang_berubah():
+	return cache.get_changes()
 
