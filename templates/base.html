@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>{% block title %} Title {% endblock %}</title>
@@ -16,17 +16,21 @@
   <body>
    <div id="page-container">  
      <div id="header">{% block header %}header{% endblock %}</div>
-     <div id="topnav">
-        <ul class="nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/update">Update your Databases</a></li>
-          <li><a href="/apply">Apply Pending Action</a></li>
-          <li><a href="/statistic">Statistic</a></li>
-          <li><a href="/about">About</a></li>    
-        </ul> 
-     </div>
-	   <div id="flash">
-       <div id="messages">Messages
+    
+	   <div id="topnav">
+		    <div id="topnav-wrap">
+			   <ul id="topnav-main">
+ 		  		<li><a href="/">Home</a><span class="nav-sec">Your Home Page</span></li>
+ 		  		<li><a href="/statistic">Statistic</a><span class="nav-sec">Statistic four your Cache</span></li>		
+ 		  		<li><a href="/apply">Apply</a><span class="nav-sec">Apply Pending Operations</span></li>		
+ 		  		<li><a href="/update">Updates</a><span class="nav-sec">Updates databases</span></li>
+				  <li><a href="/about">About</a><span class="nav-sec">About this system</span></li>		
+			   </ul>
+	 	   </div>
+	   </div>
+	 
+	<div id="flash">
+    <div id="messages">Messages
         {% for category, msg in get_flashed_messages(with_categories=true) %}
             <p class="messages flash-{{ category }}">msg{{ msg }}</p>
         {% endfor %}
@@ -47,9 +51,7 @@
      <div id="deskripsi">{% block deskripsi %}<h2><p>deskripsi</p></h2>{% endblock%}</div>
      <div id="footer">
       {% block footer %}
-        <div class="left">kaki sebelah kiri</div>
-        <div class="right">kaki sebelah kanan</div>
-                 footer
+		<p><h1>Footer</h1></p>
       {% endblock%}
      </div>
   </div>    

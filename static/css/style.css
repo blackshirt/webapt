@@ -8,19 +8,41 @@ html {
 body {
   padding:0px;
   margin:0px;
-  font-family: Arial, Helvetica, Verdana, Sans-serif;
-  font-size: 14px;
+  font-family: "Lucida Grande", Arial, Sans-serif;
+  font-size: 13px;
   color: #666666;
+  background: #F3F3F3;
 }
 
 .hidden {
     display: none;
 }
 
+
 a {color: #000000;}
 a:visited {color:#DB7093;}
 a:hover {color: #d5c743;}
 a:active { color:#000000;}
+
+a {
+	color: #00f;
+	text-decoration:none;
+}
+/*
+a:visited {color:#DB7093;}
+a:hover {color: #564b47;}
+a:active { color:#fff;}
+*/
+.subtext {
+	padding-top:1px;
+}
+
+.green {background:#6AA63B;}
+.yellow {background:#FBC700;}
+.red {background:#D52100;}
+.purple {background:#5122B4;}
+.blue {background:##0292C0;}
+
 
 h1 {
 font-size: 12px;
@@ -72,6 +94,66 @@ background-color: #B58AA5;
 	background: #bbb888;
 }
 
+/* topnav */
+#topnav {
+	background:#000;
+	height:65px;
+}
+
+#topnav-wrap {
+	margin:0 auto;
+	width:960px;
+}
+
+#topnav-main {
+	padding:1px;
+	color:#fff;
+	font-size:20px;
+	font-weight:bold;
+	margin-bottom:1px;
+	float:left;
+}
+
+#topnav-main li {
+	float:left;
+	margin-right:24px;
+	list-style:none;
+}
+
+#topnav-main li a {
+	display:block;
+	color:#fff;
+}
+
+#topnav-main li ul {
+	display:none;
+	z-index:80;
+}
+
+#topnav-info {
+	background:#dddddd;
+	float:left;
+	width:1000px;
+}
+
+#topnav-sec li a {
+	padding:15px;
+	display:inline;
+	height:42px;
+	color:#a19f9f;
+}
+
+#topnav-sec li a:hover {
+	color:#aF1E1E;
+}
+
+.nav-sec {
+	display:block;
+	font-size:12px;
+	font-weight:normal;
+	text-align:center;
+}
+
 /* ----------banner for logo-------------- */
 #header {
 background: #BC4676;
@@ -106,7 +188,7 @@ min-height:955px;
 height:expression(this.scrollHeight > 600 ? "auto":"600px"); }
 
 p, pre{
-padding: 5px 10px;
+padding: 0px 5px;
 margin:0px;
 }
 
@@ -120,7 +202,7 @@ clear: both;
 }
 
 #navigation {
-	font-size: 1.45em;
+	font-size: 1.27em;
 	font-style: bold;
 	width: 180px;
 }
@@ -153,18 +235,25 @@ clear: both;
 	position: relative;
 }
 /*
+<<<<<<< HEAD
 .li a { color:blue; background-color:  #ccf; }
 .li:nth-child(odd) a { 
+=======
+li a { color:blue; background-color:  #ccf; }
+li:nth-child(odd) a { 
+>>>>>>> dcd7d9c719451a59c1c612f04e7bf34e900e8a9b
 	color:green;
 	background-color:  #ccf;
 	}
 .li:nth-child(even) a { color:red; }
 
 li { color:blue; }
-li:nth-child(odd) { color:#ccc; background-color:  #c0f;}
+li:nth-child(odd) { color:#ccc; background-color:  #cff;}
 li:nth-child(even) { color:red; }
+<<<<<<< HEAD
 
 */
+
 ul.top-level {
 	background: #BC4676;
 }

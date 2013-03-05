@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>
+<ul>
+<p>
+<h1> Jumlah paket di dalam cache apt : <b>{{data.jml}} Paket</b></h1>
+<h1> Semua paket terinstall: <b>{{data.all}} Paket</b></h1>
+<h1> Paket yang upgradable : <b>{{data.upgradable}} Paket</b></h1>
+<h1> Paket terinstall dan uptodate : <b>{{data.installed}} Paket</b></h1>
+</p>
+</ul>
+</h2>
+{% endblock %}
+

@@ -1,18 +1,15 @@
 ##(c) 2013, blackshirtmuslim@yahoo.co.id
 
+import gevent.monkey
+gevent.monkey.patch_all()
 from flask import Flask, render_template, flash, request, url_for, redirect
 app = Flask(__name__)
 app.secret_key = 'some'
-import gevent.monkey
-gevent.monkey.patch_all()
+
 
 from webapt import core
 
 
-##test
-##@app.route('/base')
-#def base():
-#	return render_template('base.html')
 entry = core.get_all_section()
 
 @app.route('/')
@@ -76,6 +73,11 @@ def new_packages():
 def view_installed():
 	pass
 
+@app.route("/statistic")
+def statistic():
+	data = dict(jml=core.get_jumlah_pkg(), all=core.jml_pkg_all_installed(), upgradable=core.jml_pkg_upgradable(), installed=core.jml_pkg_installed())
+	return render_template("statistic.html", entry=entry, data=data)
+
 @app.route("/notinstalled")
 def view_not_installed():
 	pass
@@ -120,8 +122,10 @@ if __name__ == '__main__':
  
 #    @run_with_reloader
 #    def run_server():
+
 #       http_server = WSGIServer(('', 5000), DebuggedApplication(app))
-#        http_server.serve_forever()
+#       http_server.serve_forever()
  
 #    run_server()
     
+
