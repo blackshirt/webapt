@@ -12,6 +12,12 @@ from webapt import core
 
 entry = core.get_all_section()
 
+def url_for_other_page(page):
+	args = request.view_args.copy()
+	args['page'] = page
+	return url_for(request.endpoint, **args)
+app.jinja_env.globals['url_for_other_page'] = url_for_other_page
+
 @app.context_processor
 def inject_entry(): 
 	return {'entry': entry}
@@ -94,19 +100,19 @@ def apply():
 	perubahan = core.get_yang_berubah()
 	return render_template('apply.html', perubahan=perubahan)
 
-PER_PAGE = 20
+PER_PAGE = 16
 
-@app.route('/users/', defaults={'page': 1})
-@app.route('/users/page/<int:page>')
-def show_users(page):
-    count = count_all_users()
-    users = get_users_for_page(page, PER_PAGE, count)
-    if not users and page != 1:
+@app.route('/view/<path:section>/', defaults={'page': 1})
+@app.route('/view/<path:section>/<int:page>')
+def show_paket(page):
+    count = count_all_paket()
+    paket = get_paket_for_page(page, PER_PAGE, count)
+    if not paket and page != 1:
         abort(404)
-    pagination = Pagination(page, PER_PAGE, count)
-    return render_template('users.html',
+    pagination = core.Pagination(page, PER_PAGE, count)
+    return render_template('view.html',
         pagination=pagination,
-        users=users
+        paket=paket
     )
 
 if __name__ == '__main__':
