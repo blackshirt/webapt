@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = 'some'
 
 
-from webapt import core
+from webapt import core, pagination
 
 
 entry = core.get_all_section()
@@ -102,18 +102,15 @@ def apply():
 
 PER_PAGE = 16
 
-@app.route('/view/<path:section>/', defaults={'page': 1})
-@app.route('/view/<path:section>/<int:page>')
-def show_paket(page):
-    count = count_all_paket()
-    paket = get_paket_for_page(page, PER_PAGE, count)
-    if not paket and page != 1:
-        abort(404)
-    pagination = core.Pagination(page, PER_PAGE, count)
-    return render_template('view.html',
-        pagination=pagination,
-        paket=paket
-    )
+#@app.route('/view/<path:section>/', defaults={'page': 1})
+#@app.route('/view/<path:section>/<int:page>')
+#def show_paket(page):
+#    count = count_all_paket()
+#    paket = get_paket_for_page(page, PER_PAGE, count)
+#    if not paket and page != 1:
+#        abort(404)
+#    pagination = pagination.Pagination(page, PER_PAGE, count)
+#    return render_template('view.html', pagination=pagination, paket=paket)
 
 if __name__ == '__main__':
 	app.run(debug=True)
