@@ -12,17 +12,21 @@ from webapt import core
 
 entry = core.get_all_section()
 
+@app.context_processor
+def inject_entry(): 
+	return {'entry': entry}
+
 @app.route('/')
 def index():
 	core.open_database()
-	return render_template('base.html', entry=entry)
+	return render_template('base.html')
 	
 @app.route('/view/<path:section>')
 def view(section=None):
     with core.cache.actiongroup(): 	
     	all_pkgs = (core.cache[name] for name in core.cache.keys())
-    	packages = [pkg for pkg in all_pkgs if pkg.section == section]
-    return render_template('view.html', packages=packages, entry=entry)
+    	packages = (pkg for pkg in all_pkgs if pkg.section == section)
+    return render_template('view.html', packages=packages)
 
 @app.route('/paket/<path:name>')
 def paket(name=None):
@@ -30,7 +34,7 @@ def paket(name=None):
 	nama = cachepkg.shortname
 	paket = cachepkg.candidate
 	deskripsi = paket.description
-	return render_template('paket.html', entry=entry, nama=nama, deskripsi=deskripsi)
+	return render_template('paket.html', nama=nama, deskripsi=deskripsi)
 
 @app.route('/list/<path:status>')
 def list(status=None):
@@ -39,11 +43,10 @@ def list(status=None):
 
 @app.route('/install/<path:paket>')
 def install(paket=None):
+	pkg = core.cache[paket]
+	pkg.mark_install()
 	paketchanges = core.get_yang_berubah()
-	with core.cache.actiongroup():
-		for paket in paketchanges :
-			paket.mark_install()
-		return render_template('install.html', paket=paketchanges)
+	return render_template('install.html', paketchanges=paketchanges)
 
 @app.route("/update")
 def update():
@@ -76,24 +79,20 @@ def view_installed():
 @app.route("/statistic")
 def statistic():
 	data = dict(jml=core.get_jumlah_pkg(), all=core.jml_pkg_all_installed(), upgradable=core.jml_pkg_upgradable(), installed=core.jml_pkg_installed())
-	return render_template("statistic.html", entry=entry, data=data)
+	return render_template("statistic.html", data=data)
 
 @app.route("/notinstalled")
 def view_not_installed():
 	pass
 
-@app.route("/home")
-def home():
-	return render_template('menu.html', entry=entry)
-
 @app.route('/about')
 def about():
-	return render_template('about.html', entry=entry)
+	return render_template('about.html')
 
 @app.route('/apply')
 def apply():
 	perubahan = core.get_yang_berubah()
-	return render_template('apply.html', perubahan=perubahan, entry=entry)
+	return render_template('apply.html', perubahan=perubahan)
 
 PER_PAGE = 20
 
@@ -119,7 +118,7 @@ if __name__ == '__main__':
 #    from werkzeug.serving import run_with_reloader
 #    from werkzeug.debug import DebuggedApplication
 #    gevent.monkey.patch_all()
- 
+
 #    @run_with_reloader
 #    def run_server():
 

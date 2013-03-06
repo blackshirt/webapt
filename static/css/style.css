@@ -10,8 +10,8 @@ body {
   margin:0px;
   font-family: "Lucida Grande", Arial, Sans-serif;
   font-size: 13px;
-  color: #666666;
-  background: #F3F3F3;
+  color: #6bb6bb;
+  background: #505050;
 }
 
 .hidden {
@@ -45,7 +45,7 @@ a:active { color:#fff;}
 
 
 h1 {
-font-size: 12px;
+font-size: 15px;
 text-transform:uppercase;
 background-color: #fff;
 border-top:1px solid #564b47;
@@ -67,7 +67,6 @@ width: 980px;
 margin-bottom: 10px;
 margin-left: auto;
 margin-right: auto;
-background-color: #B58AA5;
 }
 
 #topnav {
@@ -155,19 +154,31 @@ background-color: #B58AA5;
 }
 
 /* ----------banner for logo-------------- */
+img.adjusted {
+   position: absolute;
+   z-index: -1;
+   width: 100%;
+   top: 0;
+   left: 0;
+ }
+
 #header {
-background: #BC4676;
+background-image: url(../../static/images/bg.jpg);
+position: relative;
 background-position: left;
-background-size: 100%;
+background-size: 100% 100%;
 padding: 0px;
 margin: 0px;
-height: 150px;
+height: 140px;
 }
-#header img {padding:0px 0px;} 
 
 #flash {
-	background-color: #F6F6F6;
-	height: 25px;
+	background-color: #B25A5A;
+	height: 45px;
+}
+#messages {
+	background-color: #B25A5A;
+	height: 35px;
 }
 
 #body-utama {
@@ -178,9 +189,9 @@ margin-right: auto;
 }
 /* -----------------content--------------------- */
 #content {
-	background-color: #ffffff;
+	background-color: #82225A;
 	margin-left: 19%;
-	margin-right: 0.8%;
+	margin-right: 0%;
 }
 
 div#content { 
@@ -190,6 +201,7 @@ height:expression(this.scrollHeight > 600 ? "auto":"600px"); }
 p, pre{
 padding: 0px 5px;
 margin:0px;
+font-size: 14px;
 }
 
 /* --------------left navi------------- */
@@ -197,7 +209,7 @@ margin:0px;
 #leftnav {
 float: left;
 width: 20%;
-color: #BC4676;
+color: #580000;
 clear: both;
 }
 
@@ -216,7 +228,7 @@ clear: both;
 }
 
 #navigation a {
-	color: #000;
+	color: #fb0;
 	cursor: pointer;
 	display: block;
 	height: 25px;
@@ -255,7 +267,7 @@ li:nth-child(even) { color:red; }
 */
 
 ul.top-level {
-	background: #BC4676;
+	background: #580000;
 }
 ul.top-level li {
 	border-bottom: #fff solid;
@@ -273,11 +285,11 @@ text-align: left; }
 
 #footer {
 	background: #B8B9BB;
-border:2px solid; 
-display:table; 
-height:100px; 
-vertical-align: middle; 
-width:100%;
+	border:2px solid; 
+	display:table; 
+	height:100px; 
+	vertical-align: middle; 
+	width:100%;
 }
 
 .left {border:2px solid;width:40%; float:left; vertical-align: middle; padding: 10px 15px;}

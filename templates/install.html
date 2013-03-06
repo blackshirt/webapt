@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<ul>
-{% 	for item in paketchanges: %}
-	<li class="{{ loop.cycle('odd', 'even') }}"><a href="/paket/{{item.shortname}}">{{item.name|upper}}{{item.architecture}}</a></li>
+<h1>Paket yang akan diinstall :</h1>
+{% for pkg in paketchanges: %}
+<li>{{pkg.name}} </li>
 {% endfor %}
-</ul>
 {% endblock %}
 

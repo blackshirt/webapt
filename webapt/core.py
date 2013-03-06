@@ -63,8 +63,8 @@ def get_component_for(pkg):
 	return componen
 
 def get_all_section():
-	cachepkt = [cache[x] for x in allpkg]
-	newlist = [ pkg.section for pkg in cachepkt if pkg.installed]
+	cachepkt = (cache[x] for x in allpkg)
+	newlist = (pkg.section for pkg in cachepkt if pkg.installed)
 	return sorted(set(newlist))
 
 def get_all_component():
