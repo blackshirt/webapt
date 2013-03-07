@@ -1,6 +1,5 @@
-{% extends "base.html" %}
 {% macro render_pagination(pagination) %}
-	<div class=pagination>
+	<div>
 	{%- for page in pagination.iter_pages() %}
 		{% if page %}
 			{%if page != pagination.page %}
@@ -13,7 +12,7 @@
 		{% endif %}
 	{%- endfor %}
 	{% if pagination.has_next %}
-		<a href="{{ url_for_other_page(pagination.page + 1)}}"> Next &raquo; </a>
+		<a href="{{ url_for_other_page(pagination.page + 1)}}"> Next </a>
 	{% endif %}
 	</div>
 {% endmacro %}

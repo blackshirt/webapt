@@ -1,5 +1,6 @@
 import apt_pkg
 import apt
+import itertools
 
 apt_pkg.init()
 cachepkg = apt_pkg.Cache()
@@ -73,3 +74,22 @@ def get_all_component():
 def get_yang_berubah():
 	return cache.get_changes()
 
+def count_paket_dari_section(section):
+	all_pkgs = [cache[name] for name in allpkg]
+   	packages = [pkg for pkg in all_pkgs if pkg.section == section]
+   	return len(packages)
+
+def paginate(iterable, page_size):
+    while True:
+        i1, i2 = itertools.tee(iterable)
+        iterable, page = (itertools.islice(i1, page_size, None),
+                list(itertools.islice(i2, page_size)))
+        if len(page) == 0:
+            break
+        yield page
+
+def slicepaket(section=None, size=16):
+	all_pkgs=[cache[name] for name in allpkg]
+	paketnya = [pkg for pkg in all_pkgs if pkg.section == section]
+	slicelist = list(paginate(paketnya, size))
+	return slicelist
