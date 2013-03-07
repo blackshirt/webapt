@@ -187,7 +187,7 @@ height: 140px;
 	border-width: 1px;
 	border-style: solid;
 	border-color: #c4f9df #a4c3ca #83afb7;
-	width: 293px;
+	width: 305px;
 	height: 35px;
 	padding:5px;
 	margin: 87px 5px 50px;
@@ -201,7 +201,7 @@ height: 140px;
 .search {
 	position: absolute;
 	top: 0;
-	right: 122px;
+	right: 135px;
 	width: 200px;
 	height: 30px;	
 }
@@ -315,7 +315,7 @@ height:expression(this.scrollHeight > 600 ? "auto":"600px"); }
 
 /* -----untuk paket list ------- */
 .paket-list {
-	min-height: 3.5em;
+	min-height: 3.56em;
 	padding: 0.3em;
 	border-top: 1px dotted #dddddd;
 }
@@ -336,7 +336,7 @@ height:expression(this.scrollHeight > 600 ? "auto":"600px"); }
 }
 
 .paket-list-main p {
-	margin-left: 1.5em;
+	margin-left: 1.3em;
 }
 
 .paket-list-sub {
@@ -366,7 +366,7 @@ height:expression(this.scrollHeight > 600 ? "auto":"600px"); }
 p, pre{
 padding: 0px 5px;
 margin:0px;
-font-size: 14px;
+font-size: 16px;
 }
 
 /* --------------left navi------------- */

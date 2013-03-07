@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-
-{% 	for item in packages %}
+{% from "_helpers.html" import render_pagination %}
+{% 	for item in paket %}
 	<div class="paket-list float">
 	<div class="paket-list-main float-left">
-	<img src="http://appnr.com/images/icons-medium/alt-vlc.png" class="align-middle" />
-	<a href="/paket/{{item.shortname}}">
-		{{item.shortname|upper}}
-	</a>
-	<p>{{ item.summary }}</p>
+	<img src="../../static/images/Debian-Logo.png" height=22px width=22px class="align-middle" />
+	<a href="/paket/{{item.shortname}}">{{item.shortname|upper}}</a>
+	<p>{{ item.candidate.summary }}</p>
 	</div>
 	<div class="paket-list-sub float-right">
 	<p>Install</p>
@@ -16,6 +14,6 @@
 	</div>
 	</div>
 {% endfor %}
-
+<h1><div>{{render_pagination(paginasi)}}</div></h1>
 {% endblock %}
 

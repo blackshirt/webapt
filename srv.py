@@ -27,12 +27,28 @@ def index():
 	core.open_database()
 	return render_template('base.html')
 	
-@app.route('/view/<path:section>')
-def view(section=None):
-    with core.cache.actiongroup(): 	
-    	all_pkgs = (core.cache[name] for name in core.cache.keys())
-    	packages = (pkg for pkg in all_pkgs if pkg.section == section)
-    return render_template('view.html', packages=packages)
+#@app.route('/view/<path:section>')
+#def view(section=None):
+#    with core.cache.actiongroup(): 	
+#    	all_pkgs = (core.cache[name] for name in core.cache.keys())
+#    	packages = (pkg for pkg in all_pkgs if pkg.section == section)
+#    return render_template('view.html', packages=packages)
+
+PER_PAGE = 17
+
+def get_paket_for_page(section, PER_PAGE, page=1):
+	paketnya = core.slicepaket(section, PER_PAGE)
+	return paketnya[page - 1]
+
+@app.route('/view/<path:section>/', defaults={'page': 1})
+@app.route('/view/<path:section>/<int:page>')
+def show_paket(section=None, page=1):
+    count = core.count_paket_dari_section(section)
+    paket = get_paket_for_page(section, PER_PAGE, page)
+    if not paket and page != 1:
+        abort(404)
+    paginasi = pagination.Pagination(page, PER_PAGE, count)
+    return render_template('view.html', paginasi=paginasi, paket=paket)
 
 @app.route('/paket/<path:name>')
 def paket(name=None):
@@ -100,17 +116,7 @@ def apply():
 	perubahan = core.get_yang_berubah()
 	return render_template('apply.html', perubahan=perubahan)
 
-PER_PAGE = 16
 
-#@app.route('/view/<path:section>/', defaults={'page': 1})
-#@app.route('/view/<path:section>/<int:page>')
-#def show_paket(page):
-#    count = count_all_paket()
-#    paket = get_paket_for_page(page, PER_PAGE, count)
-#    if not paket and page != 1:
-#        abort(404)
-#    pagination = pagination.Pagination(page, PER_PAGE, count)
-#    return render_template('view.html', pagination=pagination, paket=paket)
 
 if __name__ == '__main__':
 	app.run(debug=True)
