@@ -86,6 +86,12 @@ def commit():
 			paket.mark_install()
 		paket.commit(apt.progress.base.AcquireProgress(), apt.progress.base.OpProgress())
 
+@app.route('/search/<searchtext>', methods=['POST', 'GET'])
+def search():
+	error = None
+	query = request.args.get(searchtext, '')
+	return render_template('result.html', paket=paket)
+
 @app.route("/upgradable")
 def view_upgradabale():
 	pass
