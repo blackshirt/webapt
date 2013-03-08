@@ -88,18 +88,25 @@ def commit():
 
 @app.route('/search', methods=['POST', 'GET'])
 def search():
+#from python people in the channel
+#data = {}
+#keyword = 'apache'
+#output = {}
+#for key, value in dict.items():
+#	if keyword in key or keyword in value:
+#		out.update({key: value})
+#len(out) ==> untuk menghitung jumlah dict
+#print out ==> menampilkan dict yagn memenuhi		
 	error = None
 	found = []
-	if request.method == 'POST':
-		if request.form['search'] not in core.allpkg:
-			flash(error='Nothing')
-		else:
-			found.apendd
-	elif request.method == 'GET':
+	searchtext = None
+	if request.method == 'GET':
 		searchtext = request.args.get('search')
 		if searchtext not in core.allpkg:
-			flash(error='Nothing')
-	else
+			error = 'Nothing in value'
+			flash(error)
+	return found
+
 @app.route("/upgradable")
 def view_upgradabale():
 	pass
