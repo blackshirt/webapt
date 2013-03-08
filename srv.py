@@ -86,12 +86,20 @@ def commit():
 			paket.mark_install()
 		paket.commit(apt.progress.base.AcquireProgress(), apt.progress.base.OpProgress())
 
-@app.route('/search/<searchtext>', methods=['POST', 'GET'])
+@app.route('/search', methods=['POST', 'GET'])
 def search():
 	error = None
-	query = request.args.get(searchtext, '')
-	return render_template('result.html', paket=paket)
-
+	found = []
+	if request.method == 'POST':
+		if request.form['search'] not in core.allpkg:
+			flash(error='Nothing')
+		else:
+			found.apendd
+	elif request.method == 'GET':
+		searchtext = request.args.get('search')
+		if searchtext not in core.allpkg:
+			flash(error='Nothing')
+	else
 @app.route("/upgradable")
 def view_upgradabale():
 	pass
@@ -124,22 +132,22 @@ def apply():
 
 
 
-#if __name__ == '__main__':
-#	app.run(debug=True)
-
 if __name__ == '__main__':
-    import gevent.monkey
-    from gevent.wsgi import WSGIServer
-    from werkzeug.serving import run_with_reloader
-    from werkzeug.debug import DebuggedApplication
-    gevent.monkey.patch_all()
+	app.run(debug=True)
 
-    @run_with_reloader
-    def run_server():
+#if __name__ == '__main__':
+#    import gevent.monkey
+#    from gevent.wsgi import WSGIServer
+#    from werkzeug.serving import run_with_reloader
+#    from werkzeug.debug import DebuggedApplication
+#    gevent.monkey.patch_all()
 
-       http_server = WSGIServer(('', 5000), DebuggedApplication(app))
-       http_server.serve_forever()
+#    @run_with_reloader
+#    def run_server():
+
+#       http_server = WSGIServer(('', 5000), DebuggedApplication(app))
+#       http_server.serve_forever()
  
-    run_server()
+#    run_server()
     
 

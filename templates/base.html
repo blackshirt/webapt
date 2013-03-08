@@ -17,7 +17,7 @@
    <div id="page-container">  
     <div id="header">
 		<div class="search">
-			<form id="searchbox" action="{{ url_for('search/{{searchword}}') }}" method=post>
+			<form action="{{ url_for('search') }}" id="searchbox" >
 				<input id="search" type="text" placeholder="Type your search here">
 				<input id="submit" type="submit" value="Search">
 			</form>
