@@ -5,11 +5,11 @@
 	<div class="paket-list float">
 	<div class="paket-list-main float-left">
 	<img src="../../static/images/Debian-Logo.png" height=22px width=22px class="align-middle" />
-	<a href="/paket/{{item.shortname}}">{{item.shortname|upper}}</a>
+	<a href="/paket/{{item.shortname}}"><b>Paket : </b>{{item.shortname|upper}}</a>
 	<p>{{ item.candidate.summary }}</p>
 	</div>
 	<div class="paket-list-sub float-right">
-	<p>Install</p>
+	<p><a href="/install/{{item.shortname}}">Install</p></a>
 	<p>Download</p>
 	</div>
 	</div>
