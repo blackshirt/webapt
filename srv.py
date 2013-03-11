@@ -86,7 +86,7 @@ def commit():
 			paket.mark_install()
 		paket.commit(apt.progress.base.AcquireProgress(), apt.progress.base.OpProgress())
 
-@app.route('/search', methods=['POST', 'GET'])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
 #from python people in the channel
 #data = {}
@@ -97,17 +97,14 @@ def search():
 #		out.update({key: value})
 #len(out) ==> untuk menghitung jumlah dict
 #print out ==> menampilkan dict yagn memenuhi		
-	error = None
-	data = core.build_dict()
-	founded = {}
-	searchtext = ""
+	searchtext = None
+	found = []
 	if request.method == 'POST':
-		searchtext = request.forms['search']
-		for key, value in data.items():
-			if searchtext in key or searchtext in value:
-				founded.update({key:value})
-			return founded
-	return render_template('result.html', founded=founded)
+		searchtext = request.form.get('search_text', 'Not deffined')
+		print "searchtext is : %r" % (searchtext)
+		found = [ paket	for paket in core.allpkg if searchtext in paket]
+	return render_template('result.html', found=found)
+
 
 @app.route("/upgradable")
 def view_upgradabale():
