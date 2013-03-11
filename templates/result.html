@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+{% 	for item in found %}
+	<div class="paket-list float">
+	<div class="paket-list-main float-left">
+	<img src="../../static/images/images.jpg" height=22px width=22px class="align-middle" />
+	<a href="/paket/{{item}}"><b>Paket : </b>{{item|upper}}</a>
+	<p>{{ item }}</p>
+	</div>
+	<div class="paket-list-sub float-right">
+	<p><a href="/install/{{item.shortname}}">Install</p></a>
+	<p>Download</p>
+	</div>
+	</div>
+{% endfor %}
+{% endblock %}
+
