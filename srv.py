@@ -100,12 +100,12 @@ def search():
 	error = None
 	found = []
 	searchtext = None
-	if request.method == 'GET':
-		searchtext = request.args.get('search')
-		if searchtext not in core.allpkg:
-			error = 'Nothing in value'
-			flash(error)
-	return found
+	if request.method == 'POST':
+		searchtext = request.form['search']
+		if searchtext in core.allpkg:
+			paket = cache[searchtext]
+			found.append(paket)
+		return render_template('result.html', found=found)
 
 @app.route("/upgradable")
 def view_upgradabale():
