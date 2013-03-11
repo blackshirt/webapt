@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% from "_helpers.html" import render_pagination %}
+{% 	for item, value in founded %}
+	<div class="paket-list float">
+	<div class="paket-list-main float-left">
+	<img src="../../static/images/images.jpg" height=22px width=22px class="align-middle" />
+	<a href="/paket/{{item.shortname}}"><b>Paket : </b>{{item|upper}}</a>
+	<p>{{ value }}</p>
+	</div>
+	<div class="paket-list-sub float-right">
+	<p><a href="/install/{{item.shortname}}">Install</p></a>
+	<p>Download</p>
+	</div>
+	</div>
+{% endfor %}
+<h1><div>{{render_pagination(paginasi)}}</div></h1>
+
+{% endblock %}
+

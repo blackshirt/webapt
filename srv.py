@@ -98,14 +98,16 @@ def search():
 #len(out) ==> untuk menghitung jumlah dict
 #print out ==> menampilkan dict yagn memenuhi		
 	error = None
-	found = []
-	searchtext = None
-	if request.method == 'GET':
-		searchtext = request.args.get('search')
-		if searchtext not in core.allpkg:
-			error = 'Nothing in value'
-			flash(error)
-	return found
+	data = core.build_dict()
+	founded = {}
+	searchtext = ""
+	if request.method == 'POST':
+		searchtext = request.forms['search']
+		for key, value in data.items():
+			if searchtext in key or searchtext in value:
+				founded.update({key:value})
+			return founded
+	return render_template('result.html', founded=founded)
 
 @app.route("/upgradable")
 def view_upgradabale():

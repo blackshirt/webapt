@@ -68,6 +68,19 @@ def get_all_section():
 	newlist = (pkg.section for pkg in cachepkt if pkg.installed)
 	return sorted(set(newlist))
 
+def get_description(paket):
+	pkg = cache[paket]
+	if pkg.candidate:
+		return pkg.candidate.description
+
+def build_dict():
+	data = {}
+	with cache.actiongroup():
+		for nama in allpkg:
+			descr = get_description(nama)
+			data.update({nama: descr})
+	return data
+	
 def get_all_component():
 	pass
 
