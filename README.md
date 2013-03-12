@@ -26,7 +26,7 @@ $cd webapt
 $python srv.py
 
 atau, untuk memanfaatkan update, jalankan sebagai root
-#python srv.py
+'#python srv.py'
 
 
 Copyright blackshirtmuslim@yahoo.com
