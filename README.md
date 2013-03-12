@@ -20,6 +20,7 @@ Fitur :
 
 Install
 -------
+Tidak perlu install, cukup :
 
           $git clone https://github.com/blackshirt/webapt.git
           $cd webapt
@@ -27,7 +28,7 @@ Install
 
 atau, untuk memanfaatkan update, jalankan sebagai root::
          
-          #python srv.py'
+          #python srv.py
 
-
+Saran dan perbaikan
 Copyright blackshirtmuslim@yahoo.com
