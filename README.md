@@ -21,12 +21,13 @@ Fitur :
 Install
 -------
 
-$git clone https://github.com/blackshirt/webapt.git
-$cd webapt
-$python srv.py
+          $git clone https://github.com/blackshirt/webapt.git
+          $cd webapt
+          $python srv.py
 
-atau, untuk memanfaatkan update, jalankan sebagai root
-'#python srv.py'
+atau, untuk memanfaatkan update, jalankan sebagai root::
+         
+          #python srv.py'
 
 
 Copyright blackshirtmuslim@yahoo.com
