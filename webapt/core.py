@@ -20,11 +20,12 @@ def get_all_pkgname():
 
 def jml_pkg_all_installed():
 	all_installed = []
-	for pkg in allpkg:
-		selected_pkg = cache[pkg]
+	with cache.actiongroup():
+		for pkg in allpkg:
+			selected_pkg = cache[pkg]
 
-		if selected_pkg.is_installed:
-			all_installed.append(pkg)
+			if selected_pkg.is_installed:
+				all_installed.append(pkg)
 
 	return len(all_installed)
 
@@ -88,8 +89,9 @@ def get_yang_berubah():
 	return cache.get_changes()
 
 def count_paket_dari_section(section):
-	all_pkgs = [cache[name] for name in allpkg]
-   	packages = [pkg for pkg in all_pkgs if pkg.section == section]
+	with cache.actiongroup():
+		all_pkgs = [cache[name] for name in allpkg]
+   		packages = [pkg for pkg in all_pkgs if pkg.section == section]
    	return len(packages)
 
 def paginate(iterable, page_size):
@@ -102,7 +104,8 @@ def paginate(iterable, page_size):
         yield page
 
 def slicepaket(section=None, size=16):
-	all_pkgs=[cache[name] for name in allpkg]
-	paketnya = [pkg for pkg in all_pkgs if pkg.section == section]
-	slicelist = list(paginate(paketnya, size))
+	with cache.actiongroup():
+		all_pkgs=[cache[name] for name in allpkg]
+		paketnya = [pkg for pkg in all_pkgs if pkg.section == section]
+		slicelist = list(paginate(paketnya, size))
 	return slicelist

@@ -38,7 +38,7 @@ PER_PAGE = 17
 
 def get_paket_for_page(section, PER_PAGE, page=1):
 	paketnya = core.slicepaket(section, PER_PAGE)
-	return paketnya[page - 1]
+	return sorted(paketnya[page - 1])
 
 @app.route('/view/<path:section>/', defaults={'page': 1})
 @app.route('/view/<path:section>/<int:page>')
@@ -53,10 +53,11 @@ def show_paket(section=None, page=1):
 @app.route('/paket/<path:name>')
 def paket(name=None):
 	cachepkg = core.cache[name]
-	nama = cachepkg.shortname
-	paket = cachepkg.candidate
-	deskripsi = paket.description
-	return render_template('paket.html', nama=nama, deskripsi=deskripsi)
+	paket = cachepkg.candidate 
+	informasi = dict(Nama = cachepkg.shortname, 
+		         Description = paket.description,
+		         Essential = cachepkg.essential)
+	return render_template('paket.html', informasi=informasi)
 
 @app.route('/list/<path:status>')
 def list(status=None):
@@ -66,7 +67,10 @@ def list(status=None):
 @app.route('/install/<path:paket>')
 def install(paket=None):
 	pkg = core.cache[paket]
-	pkg.mark_install()
+	if(pkg.is_installed is False):
+		pkg.mark_install()
+	if(pkg.is_installed and pkg.is_upgradable):
+		pkg.mark_upgrade()
 	paketchanges = core.get_yang_berubah()
 	return render_template('install.html', paketchanges=paketchanges)
 
@@ -137,22 +141,22 @@ def apply():
 
 
 
-#if __name__ == '__main__':
-#	app.run(debug=True)
-
 if __name__ == '__main__':
-    import gevent.monkey
-    from gevent.wsgi import WSGIServer
-    from werkzeug.serving import run_with_reloader
-    from werkzeug.debug import DebuggedApplication
-    gevent.monkey.patch_all()
+	app.run(debug=True)
+#
+#if __name__ == '__main__':
+#    import gevent.monkey
+#    from gevent.wsgi import WSGIServer
+#   from werkzeug.serving import run_with_reloader
+#    from werkzeug.debug import DebuggedApplication
+#    gevent.monkey.patch_all()
 
-    @run_with_reloader
-    def run_server():
+#    @run_with_reloader
+#    def run_server():
 
-       http_server = WSGIServer(('', 5000), DebuggedApplication(app))
-       http_server.serve_forever()
+#       http_server = WSGIServer(('', 5000), DebuggedApplication(app))
+#       http_server.serve_forever()
  
-    run_server()
+#    run_server()
     
 

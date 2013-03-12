@@ -30,5 +30,9 @@ atau, untuk memanfaatkan update, jalankan sebagai root::
          
           #python srv.py
 
+Buka browser dan ketikkan alamat
+
+		http://127.0.0.1:5000/
+		
 Saran dan perbaikan
 Copyright blackshirtmuslim@yahoo.com

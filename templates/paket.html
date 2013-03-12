@@ -2,10 +2,9 @@
 {% block content %}
 <h3 class="title-heading">Detil Aplikasi :</h3>
 <div class="box-isi">
-<h2>{{ nama }} </h2>
-<h2>{{ deskripsi }} </h2>
+{% for key, item in informasi.items() %}
+<h2>{{ key }} : {{ item }} </h2>
+{% endfor %}
 </div>
-<h2>Action</h2>
-<a href="/install/{{ nama }}">Install</a>
 {% endblock %}
 
