@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Paket yang akan diinstall :</h1>
+<h3 class="title-heading">Paket yang akan diinstal :</h3>
+<div class="box-isi">
 {% for pkg in paketchanges: %}
 <li>{{pkg.name}} </li>
 {% endfor %}
+</div>
 {% endblock %}
 

@@ -105,7 +105,6 @@ def search():
 		found = [ paket	for paket in core.allpkg if searchtext in paket]
 	return render_template('result.html', found=found)
 
-
 @app.route("/upgradable")
 def view_upgradabale():
 	pass

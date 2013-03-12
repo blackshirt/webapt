@@ -9,7 +9,7 @@ body {
   padding:0px;
   margin:0px;
   font-family: "Lucida Grande", Arial, Sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   color: #6bb6bb;
   background: #505050;
 }
@@ -25,17 +25,18 @@ a:hover {color: #d5c743;}
 a:active { color:#000000;}
 
 a {
-	color: #00f;
+	color: #000;
 	text-decoration:none;
 }
-/*
+
 a:visited {color:#DB7093;}
 a:hover {color: #564b47;}
 a:active { color:#fff;}
-*/
+
 .subtext {
 	padding-top:1px;
 }
+
 
 .green {background:#6AA63B;}
 .yellow {background:#FBC700;}
@@ -54,7 +55,7 @@ padding:5px 15px;
 margin:0px }
 
 h2 {
-font-size:20px;
+font-size:17px;
 font-weight: normal;
 padding: 5px 10px;
 margin:0px;}
@@ -90,7 +91,7 @@ margin-right: auto;
 	display: inline-block;
 	padding: 10px;
 	height: 30px;
-	background: #bbb888;
+	background: #fff;
 }
 
 /* topnav */
@@ -143,7 +144,7 @@ margin-right: auto;
 }
 
 #topnav-sec li a:hover {
-	color:#aF1E1E;
+	color:#434343;
 }
 
 .nav-sec {
@@ -212,7 +213,7 @@ height: 140px;
 	border: 1px solid #a4c3ca;
 	font: normal 13px 'trebuchet MS', arial, helvetica;
 /*	background: #f1f1f1; */
-	background: #580000;
+	background: #fff;
 
 	-moz-border-radius: 50px 3px 3px 50px;
 	border-radius: 50px 3px 3px 50px;
@@ -303,7 +304,7 @@ margin-right: auto;
 }
 /* -----------------content--------------------- */
 #content {
-	background-color: #82225A;
+	background-color: #f0ecec;
 	margin-left: 19%;
 	margin-right: 0%;
 }
@@ -320,8 +321,13 @@ height:expression(this.scrollHeight > 600 ? "auto":"600px"); }
 	border-top: 1px dotted #dddddd;
 }
 
+/* ---paket list berselang-seling warnanya --- */
+.paket-list { color:#f90; }
+.paket-list:nth-child(odd) { color:#580000; background-color:  #aaaab8;}
+.paket-list:nth-child(even) { color:red; background-color:  #bf948c;}
+
 .paket-list:hover {
-	background-color: #f5f5f5;
+	background-color: #000;
 }
 .packet-list-main {
 	width: 75%;
@@ -411,25 +417,50 @@ clear: both;
 	background: #f90;
 	position: relative;
 }
-/*
-<<<<<<< HEAD
-.li a { color:blue; background-color:  #ccf; }
-.li:nth-child(odd) a { 
-=======
-li a { color:blue; background-color:  #ccf; }
-li:nth-child(odd) a { 
->>>>>>> dcd7d9c719451a59c1c612f04e7bf34e900e8a9b
-	color:green;
-	background-color:  #ccf;
-	}
-.li:nth-child(even) a { color:red; }
 
-li { color:blue; }
-li:nth-child(odd) { color:#ccc; background-color:  #cff;}
-li:nth-child(even) { color:red; }
-<<<<<<< HEAD
 
-*/
+/* ----title heading --- */
+.title-heading {
+	margin:15px 0 0 0;
+	padding:5px 8px;
+	font-size:13px;
+	color:#3a505b;
+	text-shadow:0 1px white;
+	background:#e6f1f6;
+	border:1px solid #c5d5dd;
+	border-top-right-radius:4px;
+	border-top-left-radius:4px
+}
+
+.box-isi {
+	margin:15px 0 0 0;
+	padding:5px 8px;
+	font-size:13px;
+	color:#3a005b;
+	text-shadow:0 1px white;
+	background:#e6f1f6;
+	border:1px solid #c5c5d0;
+	border-top-right-radius:4px;
+	border-top-left-radius:4px;
+	border-bottom-left-radius:4px;
+	border-bottom-right-radius: 4px;
+}
+
+.box-navigasi {
+	width: 179px;
+	height: 19px;
+	margin:0px 0 0 0;
+	padding:4px 0px;
+	font-size:13px;
+	color:#456cde;
+	text-shadow:0 1px white;
+	background:#e6f1f6;
+	border:1px solid #c5c5d0;
+	border-top-right-radius:2px;
+	border-top-left-radius:2px;
+	border-bottom-left-radius:2px;
+	border-bottom-right-radius: 2px;
+}
 
 ul.top-level {
 	background: #580000;

@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+<h3 class="title-heading">Apply:</h3>
+<div class="box-isi">
 <ul>
 {% 	for item in perubahan %}
 	<li class="{{ loop.cycle('odd', 'even') }}"><a href="/paket/{{item.shortname}}">{{item.name|upper}}{{item.architecture}}</a></li>
 {% endfor %}
 </ul>
+</div>
 {% endblock %}
 
