@@ -2,15 +2,30 @@ import apt_pkg
 import apt
 import itertools
 
-apt_pkg.init()
-cachepkg = apt_pkg.Cache()
-cache = apt.Cache()
+
+#apt_pkg.init()
+#cachepkg = apt_pkg.Cache()
+
+operationoutput = open('temp/opoutput','w')
+acquireoutput = open('temp/acqoutput', 'w')
+
+opprogress = apt.progress.text.OpProgress(operationoutput)
+acqprogress = apt.progress.text.AcquireProgress(acquireoutput)
+
+cache = apt.Cache(opprogress)
 
 allpkg = cache.keys()
-allfromaptpkg = cachepkg.packages
+#allfromaptpkg = cachepkg.packages
+
+def database_init():
+	return cache
 
 def open_database():
 	return cache.open()
+
+def update_database():
+	cache.update(acqprogress)
+
 	
 def get_jumlah_pkg():
 	return len(allpkg)
@@ -19,23 +34,26 @@ def get_all_pkgname():
 	print "\n".join(sorted(allpkg))
 
 def jml_pkg_all_installed():
-	all_installed = []
+	#all_installed = []
 	with cache.actiongroup():
-		for pkg in allpkg:
-			selected_pkg = cache[pkg]
+		all_installed = [cache[pkg] for pkg in allpkg if cache[pkg].is_installed]
+	#	for pkg in allpkg:
+	#		selected_pkg = cache[pkg]
 
-			if selected_pkg.is_installed:
-				all_installed.append(pkg)
+	#		if selected_pkg.is_installed:
+	#			all_installed.append(pkg)
 
 	return len(all_installed)
 
 def jml_pkg_upgradable():
-	upgradable = []
-	for pkg in allpkg:
-		upgradable_pkg = cache[pkg]
+	#upgradable = []
+	with cache.actiongroup():
+		upgradable = [pkg for pkg in allpkg if cache[pkg].is_upgradable]
+	#for pkg in allpkg:
+	#	upgradable_pkg = cache[pkg]
 
-		if upgradable_pkg.is_upgradable:
-			upgradable.append(pkg)
+	#	if upgradable_pkg.is_upgradable:
+	#		upgradable.append(pkg)
 
 	return len(upgradable)
 
@@ -65,8 +83,9 @@ def get_component_for(pkg):
 	return componen
 
 def get_all_section():
-	cachepkt = (cache[x] for x in allpkg)
-	newlist = (pkg.section for pkg in cachepkt if pkg.installed)
+	with cache.actiongroup():
+		cachepkt = (cache[x] for x in allpkg)
+		newlist = (pkg.section for pkg in cachepkt if pkg.installed)
 	return sorted(set(newlist))
 
 def get_description(paket):
@@ -90,7 +109,7 @@ def get_yang_berubah():
 
 def count_paket_dari_section(section):
 	with cache.actiongroup():
-		all_pkgs = [cache[name] for name in allpkg]
+		all_pkgs = (cache[name] for name in allpkg)
    		packages = [pkg for pkg in all_pkgs if pkg.section == section]
    	return len(packages)
 
@@ -105,7 +124,8 @@ def paginate(iterable, page_size):
 
 def slicepaket(section=None, size=16):
 	with cache.actiongroup():
-		all_pkgs=[cache[name] for name in allpkg]
-		paketnya = [pkg for pkg in all_pkgs if pkg.section == section]
+		paketnya = (cache[pkg] for pkg in allpkg if cache[pkg].section == section)
+		#all_pkgs=(cache[name] for name in allpkg)
+		#paketnya = (pkg for pkg in all_pkgs if pkg.section == section)
 		slicelist = list(paginate(paketnya, size))
 	return slicelist

@@ -2,12 +2,12 @@
 
 import gevent.monkey
 gevent.monkey.patch_all()
-from flask import Flask, render_template, flash, request, url_for, redirect
+from flask import Flask, render_template, flash, request, url_for, redirect, Response
 app = Flask(__name__)
 app.secret_key = 'some'
 
-
-from webapt import core, pagination
+import os
+from webapt import core, pagination, mythread
 
 
 entry = core.get_all_section()
@@ -74,22 +74,45 @@ def install(paket=None):
 	paketchanges = core.get_yang_berubah()
 	return render_template('install.html', paketchanges=paketchanges)
 
+
+@app.route('/download')
+def download():
+	pass
+
 @app.route("/update")
 def update():
-	flash('Please wait for update')
-	cache_updated = cache.update()
-	if cache_updated == True:
-		return "cache updated", 200
-	else:
-		return "cache update failed", 500
-	
+	#flash('Please wait for update')
+	#cache_updated = cache.update()
+	#if cache_updated == True:
+	#	return "cache updated", 200
+	#else:
+	#	return "cache update failed", 500
+	#pass
+	#'''	apt progress menyediakan opsi output ke file with open('file', 'r') as myfile: codeflow: read_date = myfile.read() file.close() or whatever '''
+	#with open('temp/acqoutput', 'rwb', 1) as myfile:
+	#	core.update_database()
+	#	rows = myfile.readline()
+	#	myfile.flush()
+	#myfile.close()	
+	#return render_template('update.html', rows=rows)
+	(rh, wh) = os.pipe()
+	rows = os.fdopen(rh, 'r')
+	w = os.fdopen(wh, 'w')
+
+	mythread(w).start()
+	return render_template('update.html', rows=rows)
+
+
 @app.route("/commit")
 def commit():
-	with cache.actiongroup():
-		for paket in my_selected_packages:
-			paket.mark_install()
-		paket.commit(apt.progress.base.AcquireProgress(), apt.progress.base.OpProgress())
-
+	status = False
+	with core.cache.actiongroup():
+		for paket in core.get_yang_berubah():
+			status = paket.commit(core.apt.progress.base.AcquireProgress(), core.apt.progress.base.OpProgress())
+		if status == True:
+			flash("sukses in install")
+			return render_template('resultinstall.html', status=status)
+		
 @app.route('/search', methods=['GET', 'POST'])
 def search():
 #from python people in the channel

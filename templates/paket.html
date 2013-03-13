@@ -6,5 +6,12 @@
 <h2>{{ key }} : {{ item }} </h2>
 {% endfor %}
 </div>
+<p>
+<div class="box-isi">
+<a href="/install/{{ informasi.get('Nama', 'not found')}}" class="buton">Install</a>
+<a href="/install/{{ informasi.get('Nama', 'not found')}}" class="buton">Download</a>
+<a href="/install/{{ informasi.get('Nama')}}" class="buton">Remove</a>
+</div>
+</p>
 {% endblock %}
 

@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <h3 class="title-heading">Apply:</h3>
+<h2>Paket berikut akan diinstall :</h2>
 <div class="box-isi">
-<ul>
 {% 	for item in perubahan %}
-	<li class="{{ loop.cycle('odd', 'even') }}"><a href="/paket/{{item.shortname}}">{{item.name|upper}}{{item.architecture}}</a></li>
+	<a href="/paket/{{item.shortname}}"><b>{{item.name}},<b></a>
 {% endfor %}
-</ul>
 </div>
+<div class="box-isi">Informasi</div>
+<div class="box-isi"><a href="/commit">Yes</a></div>
 {% endblock %}
 

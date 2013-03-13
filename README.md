@@ -4,10 +4,13 @@ WebAPT
 Webapt merupakan aplikasi berantarmuka web untuk mengakses sistem APT (Advanced Packaging Tool), yang biasa ada di Distro Linux berbasis Debian dan turunannya.
 
 Webapt ditulis menggunakan beberapa bantuan tool, yang sudah tersedia opensource
+
+- python, Powerfull open scripting language, http://python.org/
 - python-apt , http://anonscm.debian.org/loggerhead/apt/python-apt/debian-sid/files
 - python-flask, Flask micro framework, http://flask.pocoo.org
 - css
 - html
+
 
 Fitur :
 -------

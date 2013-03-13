@@ -462,6 +462,20 @@ clear: both;
 	border-bottom-right-radius: 2px;
 }
 
+.buton {
+	padding: 6px 8px;
+	background: #cc7d0e;
+	color: #fff;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.buton:hover {
+	text-decoration: none;
+	background: #757575;
+	color: #fff;
+}
+
 ul.top-level {
 	background: #580000;
 }
