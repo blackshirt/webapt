@@ -1,16 +1,33 @@
 ##(c) 2013, blackshirtmuslim@yahoo.co.id
+#
+#import gevent.monkey
+#gevent.monkey.patch_all()
+import contextlib, apt
+@contextlib.contextmanager
+def capture():
+    import sys
+    from cStringIO import StringIO
+    oldout,olderr = sys.stdout, sys.stderr
+    try:
+        out=[StringIO(), StringIO()]
+        sys.stdout,sys.stderr = out
+        yield out
+    finally:
+        sys.stdout,sys.stderr = oldout, olderr
+        out[0] = out[0].getvalue()
+        out[1] = out[1].getvalue()
 
-import gevent.monkey
-gevent.monkey.patch_all()
 from flask import Flask, render_template, flash, request, url_for, redirect, Response
 app = Flask(__name__)
 app.secret_key = 'some'
+
 
 import os
 from webapt import core, pagination, mythread
 
 
 entry = core.get_all_section()
+
 
 def url_for_other_page(page):
 	args = request.view_args.copy()
@@ -79,28 +96,11 @@ def install(paket=None):
 def download():
 	pass
 
-@app.route("/update")
+@app.route('/update')
 def update():
-	#flash('Please wait for update')
-	#cache_updated = cache.update()
-	#if cache_updated == True:
-	#	return "cache updated", 200
-	#else:
-	#	return "cache update failed", 500
-	#pass
-	#'''	apt progress menyediakan opsi output ke file with open('file', 'r') as myfile: codeflow: read_date = myfile.read() file.close() or whatever '''
-	#with open('temp/acqoutput', 'rwb', 1) as myfile:
-	#	core.update_database()
-	#	rows = myfile.readline()
-	#	myfile.flush()
-	#myfile.close()	
-	#return render_template('update.html', rows=rows)
-	(rh, wh) = os.pipe()
-	rows = os.fdopen(rh, 'r')
-	w = os.fdopen(wh, 'w')
-
-	mythread(w).start()
-	return render_template('update.html', rows=rows)
+	with capture() as out:
+		apt.Cache().update(apt.progress.text.AcquireProgress())
+	return render_template('update.html', out=out)
 
 
 @app.route("/commit")
@@ -163,23 +163,23 @@ def apply():
 	return render_template('apply.html', perubahan=perubahan)
 
 
-
-if __name__ == '__main__':
-	app.run(debug=True)
 #
 #if __name__ == '__main__':
-#    import gevent.monkey
-#    from gevent.wsgi import WSGIServer
-#   from werkzeug.serving import run_with_reloader
-#    from werkzeug.debug import DebuggedApplication
-#    gevent.monkey.patch_all()
+#	app.run(debug=True)
+#
+if __name__ == '__main__':
+	import gevent.monkey
+	from gevent.wsgi import WSGIServer
+	from werkzeug.serving import run_with_reloader
+	from werkzeug.debug import DebuggedApplication
+	gevent.monkey.patch_all()
 
-#    @run_with_reloader
-#    def run_server():
+	@run_with_reloader
+	def run_server():
 
-#       http_server = WSGIServer(('', 5000), DebuggedApplication(app))
-#       http_server.serve_forever()
+		http_server = WSGIServer(('', 5000), DebuggedApplication(app))
+		http_server.serve_forever()
  
-#    run_server()
+	run_server()
     
 

@@ -1,7 +1,7 @@
 import time
 import threading
 
-class my_thread(threading.Thread):
+class mythread(threading.Thread):
     def __init__(self, file):
         self.file = file
         threading.Thread.__init__(self)

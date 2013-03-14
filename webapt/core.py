@@ -6,13 +6,12 @@ import itertools
 #apt_pkg.init()
 #cachepkg = apt_pkg.Cache()
 
-operationoutput = open('temp/opoutput','w')
-acquireoutput = open('temp/acqoutput', 'w')
+#operationoutput = open('temp/opoutput','w')
+#acquireoutput = open('temp/acqoutput', 'w')
+opprogress = apt.progress.text.OpProgress()
+#acqprogress = apt.progress.text.AcquireProgress()
 
-opprogress = apt.progress.text.OpProgress(operationoutput)
-acqprogress = apt.progress.text.AcquireProgress(acquireoutput)
-
-cache = apt.Cache(opprogress)
+cache = apt.Cache()
 
 allpkg = cache.keys()
 #allfromaptpkg = cachepkg.packages

@@ -2,7 +2,9 @@
 {% block content %}
 <h3 class="title-heading">Update :</h3>
 <div class="box-isi">
-{{rows}}
+{% for line in out %}
+	<pre>{{ line }}</pre>
+{% endfor %}
 </div>
 
 {% endblock %}
