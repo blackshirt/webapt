@@ -23,7 +23,7 @@ app.secret_key = 'some'
 
 
 import os
-from webapt import core, pagination, mythread
+from webapt import core, pagination
 
 
 entry = core.get_all_section()
@@ -99,7 +99,7 @@ def download():
 @app.route('/update')
 def update():
 	with capture() as out:
-		apt.Cache().update(apt.progress.text.AcquireProgress())
+		apt.Cache().open(apt.progress.text.OpProgress())
 	return render_template('update.html', out=out)
 
 
