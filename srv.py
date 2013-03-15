@@ -164,22 +164,22 @@ def apply():
 
 
 #
-#if __name__ == '__main__':
-#	app.run(debug=True)
-#
 if __name__ == '__main__':
-	import gevent.monkey
-	from gevent.wsgi import WSGIServer
-	from werkzeug.serving import run_with_reloader
-	from werkzeug.debug import DebuggedApplication
-	gevent.monkey.patch_all()
+	app.run(debug=True)
+#
+#if __name__ == '__main__':
+#	import gevent.monkey
+#	from gevent.wsgi import WSGIServer
+#	from werkzeug.serving import run_with_reloader
+#	from werkzeug.debug import DebuggedApplication
+#	gevent.monkey.patch_all()
 
-	@run_with_reloader
-	def run_server():
+#	@run_with_reloader
+#	def run_server():
 
-		http_server = WSGIServer(('', 5000), DebuggedApplication(app))
-		http_server.serve_forever()
+#		http_server = WSGIServer(('', 5000), DebuggedApplication(app))
+#		http_server.serve_forever()
  
-	run_server()
+#	run_server()
     
 
