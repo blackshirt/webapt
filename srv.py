@@ -11,6 +11,7 @@ def capture():
     try:
         out=[StringIO(), StringIO()]
         sys.stdout,sys.stderr = out
+        sys.stdout.flush()
         yield out
     finally:
         sys.stdout,sys.stderr = oldout, olderr
@@ -96,10 +97,22 @@ def install(paket=None):
 def download():
 	pass
 
+@app.route('/open')
+def open():
+    with capture() as out:
+        sys.stdout.flush()
+        data = {"value":apt.Cache().open(apt.progress.text.OpProgress())}
+    return jsonify(data)
+
+@app.route('/update2')
+def update2():
+	pass
+
 @app.route('/update')
 def update():
 	with capture() as out:
-		apt.Cache().update(apt.progress.text.AcquireProgress())
+                sys.stdout.flush()
+                apt.Cache().open(apt.progress.text.OpProgress())
 	return render_template('update.html', out=out)
 
 
@@ -164,22 +177,22 @@ def apply():
 
 
 #
-#if __name__ == '__main__':
-#	app.run(debug=True)
-#
 if __name__ == '__main__':
-	import gevent.monkey
-	from gevent.wsgi import WSGIServer
-	from werkzeug.serving import run_with_reloader
-	from werkzeug.debug import DebuggedApplication
-	gevent.monkey.patch_all()
+	app.run(debug=True)
+#
+#if __name__ == '__main__':
+#	import gevent.monkey
+#	from gevent.wsgi import WSGIServer
+#	from werkzeug.serving import run_with_reloader
+#	from werkzeug.debug import DebuggedApplication
+#	gevent.monkey.patch_all()
 
-	@run_with_reloader
-	def run_server():
+#	@run_with_reloader
+#	def run_server():
 
-		http_server = WSGIServer(('', 5000), DebuggedApplication(app))
-		http_server.serve_forever()
+#		http_server = WSGIServer(('', 5000), DebuggedApplication(app))
+#		http_server.serve_forever()
  
-	run_server()
+#	run_server()
     
 
