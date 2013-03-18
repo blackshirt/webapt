@@ -24,7 +24,7 @@ app.secret_key = 'some'
 
 
 import os
-from webapt import core, pagination, mythread
+from webapt import core, pagination
 
 
 entry = core.get_all_section()
@@ -111,8 +111,12 @@ def update2():
 @app.route('/update')
 def update():
 	with capture() as out:
+<<<<<<< HEAD
                 sys.stdout.flush()
                 apt.Cache().open(apt.progress.text.OpProgress())
+=======
+		apt.Cache().open(apt.progress.text.OpProgress())
+>>>>>>> 40b167ea3fd0b2b47c81e0d6cc80d251d2be7860
 	return render_template('update.html', out=out)
 
 

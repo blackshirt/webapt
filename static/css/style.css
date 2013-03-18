@@ -370,7 +370,6 @@ height:expression(this.scrollHeight > 600 ? "auto":"600px"); }
 }
 
 p, pre{
-padding: 0px 5px;
 margin:0px;
 font-size: 16px;
 }
