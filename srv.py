@@ -3,6 +3,7 @@
 #import gevent.monkey
 #gevent.monkey.patch_all()
 import contextlib, apt
+from cStringIO import StringIO
 @contextlib.contextmanager
 def capture():
     import sys
@@ -104,31 +105,34 @@ def open():
         data = {"value":apt.Cache().open(apt.progress.text.OpProgress())}
     return jsonify(data)
 
+@app.route('/open2')
+def open2():
+    def generate():
+        with capture() as out:  
+            apt.Cache().open(apt.progress.text.OpProgress())
+    return Response(generate(), mimetype='text/html')
+
+    
 @app.route('/update2')
 def update2():
 	pass
 
 @app.route('/update')
 def update():
-	with capture() as out:
-<<<<<<< HEAD
-                sys.stdout.flush()
-                apt.Cache().open(apt.progress.text.OpProgress())
-=======
-		apt.Cache().open(apt.progress.text.OpProgress())
->>>>>>> 40b167ea3fd0b2b47c81e0d6cc80d251d2be7860
-	return render_template('update.html', out=out)
+    obout = StringIO()
+    progress = apt.progress.text.OpProgress(obout)
+    out = apt.Cache().open(progress)
+    return render_template('update.html', out=out)
 
 
 @app.route("/commit")
 def commit():
 	status = False
-	with core.cache.actiongroup():
+        with capture() as out:
+            with core.cache.actiongroup():
 		for paket in core.get_yang_berubah():
-			status = paket.commit(core.apt.progress.base.AcquireProgress(), core.apt.progress.base.OpProgress())
-		if status == True:
-			flash("sukses in install")
-			return render_template('resultinstall.html', status=status)
+			status = paket.commit(core.apt.progress.text.AcquireProgress(), core.apt.progress.base.OpProgress())
+	return render_template('resultinstall.html', status=status, out=out)
 		
 @app.route('/search', methods=['GET', 'POST'])
 def search():
