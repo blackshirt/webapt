@@ -1,8 +1,9 @@
 ##(c) 2013, blackshirtmuslim@yahoo.co.id
 #
-#import gevent.monkey
-#gevent.monkey.patch_all()
-import contextlib, apt
+import gevent.monkey
+gevent.monkey.patch_all()
+
+import contextlib, apt, subprocess
 from cStringIO import StringIO
 @contextlib.contextmanager
 def capture():
@@ -115,13 +116,12 @@ def open2():
     
 @app.route('/update2')
 def update2():
-	pass
+    out = subprocess.check_output('python webapt/open.py'.split())
+    return render_template('update.html', out=out)
 
 @app.route('/update')
 def update():
-    obout = StringIO()
-    progress = apt.progress.text.OpProgress(obout)
-    out = apt.Cache().open(progress)
+    out = subprocess.check_output('python webapt/update.py'.split())
     return render_template('update.html', out=out)
 
 
