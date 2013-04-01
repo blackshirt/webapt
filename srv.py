@@ -2,7 +2,7 @@
 #
 #import gevent.monkey
 #gevent.monkey.patch_all()
-import contextlib, apt
+import contextlib, apt, subprocess
 @contextlib.contextmanager
 def capture():
     import sys
@@ -102,6 +102,13 @@ def update():
 		apt.Cache().open(apt.progress.text.OpProgress())
 	return render_template('update.html', out=out)
 
+@app.route('/open')
+def open():
+	with capture() as out:
+		p = subprocess.Popen('./update.py', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		for line in p.stdout.readlines():
+			print p.write(line)
+	return render_template('update.html', line=line, out=out)
 
 @app.route("/commit")
 def commit():
