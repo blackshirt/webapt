@@ -21,6 +21,15 @@ Fitur :
 5. Search
 6. Update
 
+Paket yang dibutuhkan
+---------------------
+Install dulu beberapa paket berikut untuk memenuhi keperluan app ini :
+
+		$sudo apt-get install python-apt python-flask python-gevent
+
+.. note:: installasi python-gevent merupakan opsional jika ingin memanfaatkan gevent
+
+
 Install
 -------
 Tidak perlu install, cukup :

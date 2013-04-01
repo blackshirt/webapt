@@ -1,9 +1,6 @@
 ##(c) 2013, blackshirtmuslim@yahoo.co.id
 #
 
-#import gevent.monkey
-#gevent.monkey.patch_all()
-
 import gevent.monkey
 gevent.monkey.patch_all()
 
