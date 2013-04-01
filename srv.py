@@ -1,8 +1,15 @@
 ##(c) 2013, blackshirtmuslim@yahoo.co.id
 #
+
 #import gevent.monkey
 #gevent.monkey.patch_all()
+
+import gevent.monkey
+gevent.monkey.patch_all()
+
 import contextlib, apt, subprocess
+from cStringIO import StringIO
+
 @contextlib.contextmanager
 def capture():
     import sys
@@ -11,6 +18,7 @@ def capture():
     try:
         out=[StringIO(), StringIO()]
         sys.stdout,sys.stderr = out
+        sys.stdout.flush()
         yield out
     finally:
         sys.stdout,sys.stderr = oldout, olderr
@@ -96,11 +104,30 @@ def install(paket=None):
 def download():
 	pass
 
+@app.route('/open')
+def open():
+    with capture() as out:
+        sys.stdout.flush()
+        data = {"value":apt.Cache().open(apt.progress.text.OpProgress())}
+    return jsonify(data)
+
+@app.route('/open2')
+def open2():
+    def generate():
+        with capture() as out:  
+            apt.Cache().open(apt.progress.text.OpProgress())
+    return Response(generate(), mimetype='text/html')
+
+    
+@app.route('/update2')
+def update2():
+    out = subprocess.check_output('python webapt/open.py'.split())
+    return render_template('update.html', out=out)
+
 @app.route('/update')
 def update():
-	with capture() as out:
-		apt.Cache().open(apt.progress.text.OpProgress())
-	return render_template('update.html', out=out)
+    out = subprocess.check_output('python webapt/update.py'.split())
+    return render_template('update.html', out=out)
 
 @app.route('/open')
 def open():
@@ -113,12 +140,11 @@ def open():
 @app.route("/commit")
 def commit():
 	status = False
-	with core.cache.actiongroup():
+        with capture() as out:
+            with core.cache.actiongroup():
 		for paket in core.get_yang_berubah():
-			status = paket.commit(core.apt.progress.base.AcquireProgress(), core.apt.progress.base.OpProgress())
-		if status == True:
-			flash("sukses in install")
-			return render_template('resultinstall.html', status=status)
+			status = paket.commit(core.apt.progress.text.AcquireProgress(), core.apt.progress.base.OpProgress())
+	return render_template('resultinstall.html', status=status, out=out)
 		
 @app.route('/search', methods=['GET', 'POST'])
 def search():
