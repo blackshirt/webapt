@@ -162,26 +162,6 @@ def search():
 		found = [ paket	for paket in core.allpkg if searchtext in paket]
 	return render_template('result.html', found=found)
 
-@app.route("/upgradable")
-def view_upgradabale():
-	pass
-
-@app.route("/newpackages")
-def new_packages():
-	pass
-
-@app.route("/installed")
-def view_installed():
-	pass
-
-@app.route("/statistic")
-def statistic():
-	data = dict(jml=core.get_jumlah_pkg(), all=core.jml_pkg_all_installed(), upgradable=core.jml_pkg_upgradable(), installed=core.jml_pkg_installed())
-	return render_template("statistic.html", data=data)
-
-@app.route("/notinstalled")
-def view_not_installed():
-	pass
 
 @app.route('/about')
 def about():
