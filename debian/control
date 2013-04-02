@@ -1,0 +1,5 @@
+Package: webapt
+Priority: optional
+Section: web, admin
+Depends: python-apt
+Description: web based frontend for APT

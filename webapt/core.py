@@ -2,6 +2,9 @@ import apt_pkg
 import apt
 import itertools
 
+##untuk keperluan cache
+from werkzeug.contrib.cache import SimpleCache
+flaskcache = SimpleCache()
 
 #apt_pkg.init()
 #cachepkg = apt_pkg.Cache()
@@ -63,11 +66,15 @@ def jml_pkg_installed():
 
 def jml_pkg_virtual():
 	virtual = []
-	for pkg in allfromaptpkg:
-		if(pkg.has_provides and not pkg.has_versions):
-			virtual.append(pkg)
-	return len(virtual)
-	
+	jml = flaskcache.get('jml')
+	if jml is None:
+		for pkg in allfromaptpkg:
+			if(pkg.has_provides and not pkg.has_versions):
+				virtual.append(pkg)
+			jml = len(virtual)
+		flaskcache.set('jml')
+	#return len(virtual)
+	return jml	
 	
 def get_section_for(pkg):
 	if pkg in allpkg:
@@ -128,3 +135,12 @@ def slicepaket(section=None, size=16):
 		#paketnya = (pkg for pkg in all_pkgs if pkg.section == section)
 		slicelist = list(paginate(paketnya, size))
 	return slicelist
+
+def statistik():
+	value = flaskcache.get_many('jml','all','upgradable','installed')
+	if value is None:
+		value = flaskcache.set_many([('jml', get_jumlah_pkg()),\
+			('all', jml_pkg_all_installed()), \
+			('upgradable', jml_pkg_upgradable()),\
+			('installed', jml_pkg_installed())])
+		return value

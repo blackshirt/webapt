@@ -4,33 +4,17 @@
 import gevent.monkey
 gevent.monkey.patch_all()
 
-import contextlib, apt, subprocess
-from cStringIO import StringIO
-
-@contextlib.contextmanager
-def capture():
-    import sys
-    from cStringIO import StringIO
-    oldout,olderr = sys.stdout, sys.stderr
-    try:
-        out=[StringIO(), StringIO()]
-        sys.stdout,sys.stderr = out
-        sys.stdout.flush()
-        yield out
-    finally:
-        sys.stdout,sys.stderr = oldout, olderr
-        out[0] = out[0].getvalue()
-        out[1] = out[1].getvalue()
+import apt, subprocess
 
 from flask import Flask, render_template, flash, request, url_for, redirect, Response
 app = Flask(__name__)
 app.secret_key = 'some'
 
-
 import os
 from webapt import core, pagination
 
 
+PER_PAGE = 17
 entry = core.get_all_section()
 
 
@@ -49,15 +33,6 @@ def index():
 	core.open_database()
 	return render_template('base.html')
 	
-#@app.route('/view/<path:section>')
-#def view(section=None):
-#    with core.cache.actiongroup(): 	
-#    	all_pkgs = (core.cache[name] for name in core.cache.keys())
-#    	packages = (pkg for pkg in all_pkgs if pkg.section == section)
-#    return render_template('view.html', packages=packages)
-
-PER_PAGE = 17
-
 def get_paket_for_page(section, PER_PAGE, page=1):
 	paketnya = core.slicepaket(section, PER_PAGE)
 	return sorted(paketnya[page - 1])
@@ -103,21 +78,6 @@ def download():
 
 @app.route('/open')
 def open():
-    with capture() as out:
-        sys.stdout.flush()
-        data = {"value":apt.Cache().open(apt.progress.text.OpProgress())}
-    return jsonify(data)
-
-@app.route('/open2')
-def open2():
-    def generate():
-        with capture() as out:  
-            apt.Cache().open(apt.progress.text.OpProgress())
-    return Response(generate(), mimetype='text/html')
-
-    
-@app.route('/update2')
-def update2():
     out = subprocess.check_output('python webapt/open.py'.split())
     return render_template('update.html', out=out)
 
@@ -125,14 +85,6 @@ def update2():
 def update():
     out = subprocess.check_output('python webapt/update.py'.split())
     return render_template('update.html', out=out)
-
-@app.route('/open')
-def open():
-	with capture() as out:
-		p = subprocess.Popen('./update.py', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-		for line in p.stdout.readlines():
-			print p.write(line)
-	return render_template('update.html', line=line, out=out)
 
 @app.route("/commit")
 def commit():
@@ -145,15 +97,6 @@ def commit():
 		
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-#from python people in the channel
-#data = {}
-#keyword = 'apache'
-#output = {}
-#for key, value in dict.items():
-#	if keyword in key or keyword in value:
-#		out.update({key: value})
-#len(out) ==> untuk menghitung jumlah dict
-#print out ==> menampilkan dict yagn memenuhi		
 	searchtext = None
 	found = []
 	if request.method == 'POST':
@@ -162,6 +105,11 @@ def search():
 		found = [ paket	for paket in core.allpkg if searchtext in paket]
 	return render_template('result.html', found=found)
 
+@app.route("/statistic")
+def statistic():
+	data = dict(jml=core.get_jumlah_pkg(), all=core.jml_pkg_all_installed(), upgradable=core.jml_pkg_upgradable(), installed=core.jml_pkg_installed())
+	#data = core.statistik()
+	return render_template("statistic.html", data=data)
 
 @app.route('/about')
 def about():
