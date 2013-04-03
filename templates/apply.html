@@ -3,7 +3,7 @@
 <h3 class="title-heading">Apply:</h3>
 <h2>Paket berikut akan diinstall :</h2>
 <div class="box-isi">
-{% 	for item in perubahan %}
+{% for item in perubahan %}
 	<a href="/paket/{{item.shortname}}"><b>{{item.name}},<b></a>
 {% endfor %}
 </div>

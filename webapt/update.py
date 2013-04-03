@@ -2,8 +2,9 @@
 
 import apt
 
-def update():
-    return apt.Cache().update(apt.progress.text.AcquireProgress())
+def commit():
+     
+    return apt.Cache().commit(apt.progress.text.AcquireProgress(), apt.progress.text.InstallProgress())
 
 if __name__ == '__main__':
-    update()
+    commit()

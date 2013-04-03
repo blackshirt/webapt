@@ -89,11 +89,10 @@ def update():
 @app.route("/commit")
 def commit():
 	status = False
-        with capture() as out:
-            with core.cache.actiongroup():
-		for paket in core.get_yang_berubah():
-			status = paket.commit(core.apt.progress.text.AcquireProgress(), core.apt.progress.base.OpProgress())
-	return render_template('resultinstall.html', status=status, out=out)
+        with core.cache.actiongroup():
+              for paket in core.get_yang_berubah():
+                      out = subprocess.check_output('python webapt/commit.py'.split())
+	return render_template('resultinstall.html', out=out)
 		
 @app.route('/search', methods=['GET', 'POST'])
 def search():
