@@ -10,7 +10,7 @@ from flask import Flask, render_template, flash, request, url_for, redirect, Res
 app = Flask(__name__)
 app.secret_key = 'some'
 
-import os
+import os, time
 from webapt import core, pagination
 
 
@@ -27,6 +27,22 @@ app.jinja_env.globals['url_for_other_page'] = url_for_other_page
 @app.context_processor
 def inject_entry(): 
 	return {'entry': entry}
+
+@app.route('/yield')
+def yieldku():
+    def inner():
+        proc = subprocess.Popen(
+            ['python webapt/update.py'],             #call something with a lot of output so we can see it
+            shell=True,
+            stdout=subprocess.PIPE
+        )
+
+        for line in iter(proc.stdout.readline,''):
+            time.sleep(0.6)                           # Don't need this just shows the text streaming
+            yield line.rstrip() + '\n<br/>\n'
+
+    return Response(inner(), mimetype='text/html')
+
 
 @app.route('/')
 def index():
@@ -88,8 +104,7 @@ def update():
 
 @app.route("/commit")
 def commit():
-    for paket in core.get_yang_berubah():
-        out = subprocess.check_output('python webapt/commit.py'.split())
+    out = core.cache.commit()
     return render_template('resultinstall.html', out=out)
 		
 @app.route('/search', methods=['GET', 'POST'])
